@@ -1,0 +1,38 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/orders/TC0166192942/cancel
+    body:
+      encoding: US-ASCII
+      string: order_num=TC0166192942
+    headers:
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 204
+      message: No Content
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["6f3dca3a-b095-4332-889f-d1212487407c"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Thu, 12 Sep 2013 20:14:44 GMT
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Thu, 12 Sep 2013 20:14:44 GMT
+recorded_with: VCR 2.5.0

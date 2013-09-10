@@ -1,0 +1,40 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.revtrunk.com/api/v1/attachments/trololo
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 404
+      message: Not Found
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["2e6c5420-c68e-46b3-9302-1aef580afa7c","2d3fa7aa-7c42-4867-b60e-25cae39716f0"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Thu, 12 Sep 2013 21:56:06 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Thu, 12 Sep 2013 21:56:05 GMT
+recorded_with: VCR 2.5.0

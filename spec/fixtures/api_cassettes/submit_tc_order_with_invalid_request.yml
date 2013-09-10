@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: ! '{"payment":{"type":"AccountBalance","credit_card":null}}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 400
+      message: Bad Request
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["5b0ebd8f-0726-4610-9bd3-d2738c791f19","c3750845-7fe0-42b2-b928-698a77bd5b41","0d47c50d-e4e3-43ad-bba2-c40966f833e9","be763964-c7a6-4655-950c-1b519805da90","5d9213c0-140f-427e-8a9b-22a73c105b8c","a108c467-b2bd-4fa1-9c6d-5fe331a5e0fc","612832dd-2b2c-47bb-b62b-0fb25513dd15","1e5d0be8-6383-41ca-bb5f-583c28c26591"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Mon, 16 Sep 2013 23:42:39 GMT
+      Content-Length:
+      - '100'
+    body:
+      encoding: US-ASCII
+      string: ! '{"code":10004,"message":"You must specify either translation or transcription
+        options in an order."}'
+    http_version: 
+  recorded_at: Mon, 16 Sep 2013 23:42:39 GMT
+recorded_with: VCR 2.5.0

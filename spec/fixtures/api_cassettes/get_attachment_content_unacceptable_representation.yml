@@ -1,0 +1,42 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.revtrunk.com/api/v1/attachments/yw27D3gCAAABAAAA/content
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 406
+      message: Not Acceptable
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["a45389be-f0d9-4bb5-b6cb-ea3ee4aed6c4","79ff795c-db87-4e67-be5c-a5773cf71a21","27def4d9-156b-4450-9935-c81d59412ca1"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Fri, 13 Sep 2013 20:01:18 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Fri, 13 Sep 2013 20:01:18 GMT
+recorded_with: VCR 2.5.0

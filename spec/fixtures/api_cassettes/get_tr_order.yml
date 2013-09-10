@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.revtrunk.com/api/v1/orders/TR0116711100
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["4da53417-6cee-4900-becc-54ffc448d501","b09218a3-e30d-4e14-9ec8-4d8004748fe6"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 11 Sep 2013 00:42:31 GMT
+      Content-Length:
+      - '576'
+    body:
+      encoding: US-ASCII
+      string: ! '{"order_number":"TR0116711100","price":20.0000,"status":"Finding
+        Reviewer","translation":{"total_word_count":2,"source_language_code":"cs","destination_language_code":"en"},"comments":[{"by":"Den
+        Markin","timestamp":"2012-10-19T18:55:00.743","text":"checking invoice info"}],"attachments":[{"kind":"media","name":"dl.dropbox.com_u_6623161_SoundNote_97087F7F-62A1-4005-91C9-42157AB014A2.soundnote_97087F7F-62A1-4005-91C9-42157AB014A2_0.m4a.txt","id":"vN70BhcAAAAAAAAA","links":[{"rel":"content","href":"https://www.revtrunk.com/api/v1/attachments/vN70BhcAAAAAAAAA/content"}]}]}'
+    http_version: 
+  recorded_at: Wed, 11 Sep 2013 00:42:31 GMT
+recorded_with: VCR 2.5.0

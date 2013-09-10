@@ -1,0 +1,65 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.revtrunk.com/api/v1/attachments/4QWoFrwBAAABAAAA/content
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - text/plain
+      Accept-Charset:
+      - utf-8
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 200
+      message: !binary |-
+        T0s=
+    headers:
+      !binary "Q2FjaGUtQ29udHJvbA==":
+      - !binary |-
+        bm8tY2FjaGU=
+      !binary "UHJhZ21h":
+      - !binary |-
+        bm8tY2FjaGU=
+      !binary "Q29udGVudC1MZW5ndGg=":
+      - !binary |-
+        MzYx
+      !binary "Q29udGVudC1UeXBl":
+      - !binary |-
+        dGV4dC9wbGFpbjsgY2hhcnNldD11dGYtOA==
+      !binary "RXhwaXJlcw==":
+      - !binary |-
+        LTE=
+      !binary "U2VydmVy":
+      - !binary |-
+        TWljcm9zb2Z0LUlJUy83LjU=
+      !binary "Q29udGVudC1EaXNwb3NpdGlvbg==":
+      - !binary |-
+        YXR0YWNobWVudDsgZmlsZW5hbWU9RXhhbXBsZS5kb2N4
+      !binary "WC1Qb3dlcmVkLUJ5":
+      - !binary |-
+        QVNQLk5FVA==
+      !binary "RGF0ZQ==":
+      - !binary |-
+        VGh1LCAxOSBTZXAgMjAxMyAyMToxNDo1OSBHTVQ=
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        VGl0bGUNCkhlYWRpbmcNClRvIHRha2UgYWR2YW50YWdlIG9mIHRoaXMgdGVt
+        cGxhdGXigJlzIGRlc2lnbiwgdXNlIHRoZSBTdHlsZXMgZ2FsbGVyeSBvbiB0
+        aGUgSG9tZSB0YWIuIFlvdSBjYW4gZm9ybWF0IHlvdXIgaGVhZGluZ3MgYnkg
+        dXNpbmcgaGVhZGluZyBzdHlsZXMsIG9yIGhpZ2hsaWdodCBpbXBvcnRhbnQg
+        dGV4dCB1c2luZyBvdGhlciBzdHlsZXMsIGxpa2UgRW1waGFzaXMgYW5kIElu
+        dGVuc2UgUXVvdGUuIFRoZXNlIHN0eWxlcyBjb21lIGluIGZvcm1hdHRlZCB0
+        byBsb29rIGdyZWF0IGFuZCB3b3JrIHRvZ2V0aGVyIHRvIGhlbHAgY29tbXVu
+        aWNhdGUgeW91ciBpZGVhcy4NCkdvIGFoZWFkIGFuZCBnZXQgc3RhcnRlZC4N
+        Cg==
+    http_version: 
+  recorded_at: Thu, 19 Sep 2013 21:14:59 GMT
+recorded_with: VCR 2.5.0

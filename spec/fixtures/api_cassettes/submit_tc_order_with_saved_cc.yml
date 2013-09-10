@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: ! '{"payment":{"type":"CreditCard","credit_card":{"saved_id":1}},"transcription_options":{"inputs":[{"external_link":"http://www.youtube.com/watch?v=UF8uR6Z6KLc"},{"audio_length":15,"external_link":"https://vimeo.com/7976699"}],"verbatim":true,"timestamps":true},"client_ref":"XB432423","comment":"Please
+        work quickly"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - https://www.revtrunk.com/api/v1/orders/TC0370955571
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["5b0ebd8f-0726-4610-9bd3-d2738c791f19","c3750845-7fe0-42b2-b928-698a77bd5b41","0d47c50d-e4e3-43ad-bba2-c40966f833e9","be763964-c7a6-4655-950c-1b519805da90"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Mon, 16 Sep 2013 22:55:26 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Mon, 16 Sep 2013 22:55:26 GMT
+recorded_with: VCR 2.5.0

@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/inputs
+    body:
+      encoding: UTF-8
+      string: ! '{"url":"http://www.rev.com/content/img/rev/rev_logo_colored_top.png"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - urn:foxtranslate:inputmedia:UHVwbG9hZHMvMjAxMy0wOS0xNy82NGRhOWY4Ny0zYTNlLTQ3NDgtYmI4Yi05MmE3ZmVhMTJjYzcvcmV2X2xvZ29fY29sb3JlZF90b3AucG5n
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["898ff908-ed7d-4ba9-a7d4-1ef77477b595"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 17 Sep 2013 21:08:38 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 21:08:37 GMT
+recorded_with: VCR 2.5.0

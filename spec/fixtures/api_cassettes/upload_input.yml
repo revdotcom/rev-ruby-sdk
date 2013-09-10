@@ -1,0 +1,130 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/inputs
+    body:
+      encoding: US-ASCII
+      string: ! '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
+
+        PE/RzQd+eHkAAAAASUVORK5CYII=
+
+'
+    headers:
+      Accept:
+      - ! '*/*'
+      Content-Disposition:
+      - attachment; filename=sourcedocument.png
+      Content-Type:
+      - image/png
+      Content-Length:
+      - '1775'
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["bda0d010-c658-4ff5-a201-4b1395adf2e6","5ef43220-60f5-458c-9ebb-864d8349345c"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 17 Sep 2013 21:42:29 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 21:42:29 GMT
+recorded_with: VCR 2.5.0

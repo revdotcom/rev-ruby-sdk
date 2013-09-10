@@ -1,0 +1,46 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: ! '{"payment":{"type":"CreditCard","credit_card":{"number":"4111111111111111","expiration_month":9,"expiration_year":2023,"cardholder":"Joe
+        Smith","billing_address":{"street":"123 Pine Lane","street2":"Apt D","city":"MyTown","state":"MN","zip":"12345","country_alpha2":"US"}}},"transcription_options":{"inputs":[{"external_link":"http://www.youtube.com/watch?v=UF8uR6Z6KLc"},{"audio_length":15,"external_link":"https://vimeo.com/7976699"}],"verbatim":true,"timestamps":true},"client_ref":"XB432423","comment":"Please
+        work quickly","notification":{"url":"http://www.example.com","level":"Detailed"}}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - https://www.revtrunk.com/api/v1/orders/TC0520815415
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["59869684-6394-4493-9fa8-a0966066f033"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 17 Sep 2013 00:30:56 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version: 
+  recorded_at: Tue, 17 Sep 2013 00:30:56 GMT
+recorded_with: VCR 2.5.0

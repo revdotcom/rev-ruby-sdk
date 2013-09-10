@@ -1,0 +1,44 @@
+---
+http_interactions:
+- request:
+    method: get
+    uri: https://www.revtrunk.com/api/v1/orders/TC0233908691
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Content-Type:
+      - application/json; charset=utf-8
+      Expires:
+      - '-1'
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["4da53417-6cee-4900-becc-54ffc448d501","b09218a3-e30d-4e14-9ec8-4d8004748fe6","02754721-389c-4df2-86ea-383c7cd585a0"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 11 Sep 2013 00:42:52 GMT
+      Content-Length:
+      - '371'
+    body:
+      encoding: US-ASCII
+      string: ! '{"order_number":"TC0233908691","client_ref":"XC123","price":10.0000,"status":"Finding
+        Transcriptionist","transcription":{"total_length":10,"verbatim":false,"timestamps":false},"comments":[{"by":"Admin
+        Admin","timestamp":"2013-09-06T20:05:29.663"}],"attachments":[{"kind":"media","name":"http://www.youtube.com/watch?feature=player_embedded&v=PJXCp9C380c","id":"0ynxDVACAAAAAAAA","links":[]}]}'
+    http_version: 
+  recorded_at: Wed, 11 Sep 2013 00:42:52 GMT
+recorded_with: VCR 2.5.0
