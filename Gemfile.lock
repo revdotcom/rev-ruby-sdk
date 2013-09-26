@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rev-api (1.0.0)
+    rev-api (1.0.1)
       httparty (>= 0.11.0)
 
 GEM
@@ -39,7 +39,7 @@ GEM
     tins (0.11.0)
     turn (0.9.6)
       ansi
-    vcr (2.5.0)
+    vcr (2.6.0)
     webmock (1.11.0)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -55,6 +55,6 @@ DEPENDENCIES
   rev-api!
   rubygems-tasks
   turn (~> 0.9.6)
-  vcr (~> 2.5.0)
+  vcr (~> 2.6.0)
   webmock (~> 1.11.0)
   yard

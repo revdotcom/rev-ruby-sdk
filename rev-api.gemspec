@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_runtime_dependency('httparty', '>= 0.11.0')
 
   s.add_development_dependency('webmock', '~> 1.11.0')
-  s.add_development_dependency('vcr', '~> 2.5.0')
+  s.add_development_dependency('vcr', '~> 2.6.0')
   s.add_development_dependency('turn', '~> 0.9.6')
   s.add_development_dependency('rake', '>= 10.1.0')
   s.add_development_dependency('yard')

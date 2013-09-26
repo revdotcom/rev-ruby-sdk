@@ -4,101 +4,61 @@ http_interactions:
     method: post
     uri: https://www.revtrunk.com/api/v1/inputs
     body:
-      encoding: US-ASCII
-      string: ! 'iVBORw0KGgoAAAANSUhEUgAAAHMAAAAyCAYAAABvR+QvAAAGtklEQVR42u2c
-
+      encoding: UTF-8
+      string: !binary |-
+        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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
         d7x8/PDgN++/e49iL3gLUJWyxOEG01fMLm1FCwkkYaomUPise3zP461YeeZ0
-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
-
         NDzokslPqPCbia4zNa49eP/uTEswJgJqZ2E6BYM0OnRfsBMibblVkVYtm/wE
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-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
-
         xuvDxMc0k4OVnnsXIGJcehRpamEOuFqzrNMqb0qYXExzEKpywE3qONarMP8F
-
         PE/RzQd+eHkAAAAASUVORK5CYII=
-
-'
     headers:
-      Accept:
-      - ! '*/*'
-      Content-Disposition:
-      - attachment; filename=sourcedocument.png
-      Content-Type:
-      - trololo
-      Content-Length:
-      - '1775'
       Authorization:
       - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
       User-Agent:
       - RevOfficialRubySDK/1.0.0
+      Content-Disposition:
+      - attachment; filename=sourcedocument.png
+      Content-Type:
+      - trololo
+      Accept:
+      - '*/*'
+      Content-Length:
+      - '1775'
   response:
     status:
       code: 400
@@ -115,17 +75,17 @@ http_interactions:
       Server:
       - Microsoft-IIS/7.5
       X-Miniprofiler-Ids:
-      - ! '["898ff908-ed7d-4ba9-a7d4-1ef77477b595","9fe829e6-5487-4079-bc96-5c95abf1cf80","e7f8c536-dacd-4a4e-a594-e1660295c0f5","dabe1796-e497-463b-946e-bbedf84dddcb"]'
+      - '["a0f9d7b5-d023-4b9a-9896-f0a2d64de3d3","bf2469f9-1da0-411e-bf13-d2536dad319c","8c9e9962-f48b-4ed4-98cc-418cd675a1ac","b9ff244c-b5cf-4df1-a46f-4ffcb1822ec2","28d29827-cb62-407b-a157-b5e219dcc576","d8efeedd-9de7-44b2-ba69-973527be9dbc","22d99839-4b04-495a-96cc-a5e0be8c9a12","2e4c73ef-12ed-464c-aa4f-4bb4ab398c00","3ea6619b-0c1f-4677-9613-0129cc504862","379bbb66-f74e-4d00-95bb-c6abfa4013a9","7a2148f2-ac1d-4822-bfbd-f4c6dc0cf201","77da68b5-42c7-4293-b229-98814a198f8b","3c434af1-18db-4612-b0ed-52147d4e2a5c","3b1e16e9-116e-44ed-b570-e25d0588544b","012dec81-c6a1-4518-a806-4ac3707e1fe9","066e3655-6a5d-40a4-8058-bfd2f07f93a7","20d23bf7-3b81-4012-ab14-4d972f573857","3d423fed-f62e-4f8c-96fb-5213ad3f0d6b"]'
       X-Powered-By:
       - ASP.NET
       Date:
-      - Tue, 17 Sep 2013 21:25:06 GMT
+      - Thu, 26 Sep 2013 19:27:07 GMT
       Content-Length:
       - '112'
     body:
-      encoding: US-ASCII
-      string: ! '{"code":10001,"message":"The content-type explicitly specified in
-        the request is not supported for input media"}'
-    http_version: 
-  recorded_at: Tue, 17 Sep 2013 21:25:06 GMT
+      encoding: UTF-8
+      string: '{"code":10001,"message":"The content-type explicitly specified in the
+        request is not supported for input media"}'
+    http_version:
+  recorded_at: Thu, 26 Sep 2013 19:27:07 GMT
 recorded_with: VCR 2.5.0
