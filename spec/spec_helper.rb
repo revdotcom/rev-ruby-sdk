@@ -1,3 +1,6 @@
+require 'coveralls'
+Coveralls.wear!
+
 require_relative '../lib/rev-api'
 
 #dependencies
@@ -7,7 +10,7 @@ require 'vcr'
 require 'turn'
 
 module MiniTest
-  class Spec 
+  class Spec
     class << self
       def xit(desc='anonymous')
         it(name) { skip 'DISABLED' }
