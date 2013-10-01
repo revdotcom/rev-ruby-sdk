@@ -1,5 +1,4 @@
 require_relative '../../spec_helper'
-require 'base64'
 
 describe 'POST /inputs' do
   let(:client) { Rev.new('welcome', 'AAAAAu/YjZ3phXU5FsF35yIcgiA=', 'www.revtrunk.com') }
