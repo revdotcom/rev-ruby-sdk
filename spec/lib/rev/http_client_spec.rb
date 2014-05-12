@@ -18,15 +18,15 @@ describe Rev::HttpClient do
 
   it 'must include authorization and User-Agent headers for any request' do
     host = 'www.example.com'
-    stub_request(:any, host)
+    stub_request(:any, /www\.example\.com\/.*/)
 
     client = Rev::HttpClient.new('foo', 'bar', host)
-    client.get('/orders')
+    response = client.get('/orders')
 
     assert_requested :get, "https://#{host}/api/v1/orders", :headers => {
       'Authorization' => "Rev foo:bar",
       'User-Agent' => Rev::HttpClient::USER_AGENT
     }
-  end
+  end  
 end
 
