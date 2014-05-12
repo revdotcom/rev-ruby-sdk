@@ -22,7 +22,7 @@ describe 'POST /orders' do
   )}
   let(:cc_payment) { Rev::Payment.new(Rev::Payment::TYPES[:credit_card], credit_card) }
   let(:saved_cc_payment) { Rev::Payment.new(Rev::Payment::TYPES[:credit_card], :saved_id => 1) }
-  let(:balance_payment) { Rev::Payment.new(Rev::Payment::TYPES[:balance]) }
+  let(:balance_payment) { Rev::Payment.new(Rev::Payment::TYPES[:account_balance]) }
   let(:transcription_inputs) {
       inputs = []
       inputs << Rev::Input.new(:external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')

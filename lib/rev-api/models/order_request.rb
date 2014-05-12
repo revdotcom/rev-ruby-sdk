@@ -47,7 +47,7 @@ module Rev
     # use to correctly set payment type
     TYPES = {
       :credit_card => 'CreditCard',
-      :balance => 'AccountBalance'
+      :account_balance => 'AccountBalance'
     }
 
     CC_ON_FILE_ID = 1
