@@ -53,8 +53,11 @@ module Rev
     # 10006 Input Location is not specified - neither of External Link and URI set for input media
     EXTERNAL_LINK_OR_URI_NOT_SPECIFIED = 10006
 
-    # 20001 Invalid Audio Length - If one of the input medias has a specified length that is not a positive integer
-    INVALID_AUDIO_LENGTH = 20001
+    # 20001 Invalid Media Length - If one of the input medias has a specified length that is not a positive integer
+    INVALID_MEDIA_LENGTH = 20001
+
+    # @deprecated Use {#OrderRequestErrorCodes.INVALID_MEDIA_LENGTH} instead
+    INVALID_AUDIO_LENGTH = INVALID_MEDIA_LENGTH
 
     # 20002 Invalid Word Count - word counts for translation are missing or inaccurate
     INVALID_WORD_COUNT = 20002
