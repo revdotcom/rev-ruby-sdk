@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/orders
+    body:
+      encoding: UTF-8
+      string: ! '{"payment":{"type":"AccountBalance","credit_card":null},"caption_options":{"inputs":[{"external_link":"http://www.youtube.com/watch?v=UF8uR6Z6KLc"},{"audio_length":15,"external_link":"https://vimeo.com/7976699"}],"output_file_formats":["SubRip"]},"client_ref":"XB432423","comment":"Please
+        work quickly"}'
+    headers:
+      Content-Type:
+      - application/json
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/1.0.0
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - https://www.revtrunk.com/api/v1/orders/CP12345
+      Server:
+      - Microsoft-IIS/7.5
+      X-Miniprofiler-Ids:
+      - ! '["43bcb320-a1c9-4e9f-96c1-320e01a31549","ad8a37cd-e5ea-4134-ac9e-0390f722d6f6"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Wed, 18 Sep 2013 00:21:27 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: US-ASCII
+      string: ''
+    http_version:
+  recorded_at: Wed, 18 Sep 2013 00:21:27 GMT
+recorded_with: VCR 2.5.0

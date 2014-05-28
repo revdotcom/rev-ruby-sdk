@@ -11,7 +11,7 @@ require 'pp'
 # ruby examples/cli.rb --sandbox --client-key your_client_key --user-key your_user_key
 
 class RevCLI
-  COMMANDS = %w{help get list transcripts dl_transcripts dl_sources place cancel}
+  COMMANDS = %w{help get list transcripts captions dl_transcripts dl_captions dl_sources place_tc place_cp cancel}
 
   def initialize
     options = { :environment => Rev::Api::PRODUCTION_HOST, :verbatim => false, :timestamps => false }
@@ -115,6 +115,27 @@ class RevCLI
     end
   end
 
+  def captions(args)
+    begin
+      order_num = args[0]
+      order = @rev_client.get_order order_num
+
+      if order.captions.empty?
+        puts "There are no captions for order #{order_num}"
+        return
+      end
+
+      order.captions.each do |t|
+        puts "Contents of #{t.name}"
+        puts "-----------------------------------"
+        puts @rev_client.get_attachment_content(t.id).body
+        puts
+      end
+    rescue Rev::BadRequestError => e
+      puts "Displaying captions failed with error code #{e.code}, message #{e.message}"
+    end
+  end
+
   def dl_transcripts(args)
     begin
       order_num = args[0]
@@ -132,6 +153,26 @@ class RevCLI
       end
     rescue Rev::BadRequestError => e
       puts "Downloading transcripts failed with error code #{e.code}, message #{e.message}"
+    end
+  end
+
+  def dl_captions(args)
+    begin
+      order_num = args[0]
+      order = @rev_client.get_order order_num
+
+      if order.captions.empty?
+        puts "There are no captions for order #{order_num}"
+        return
+      end
+
+      filenames = order.captions.map { |t| t.name}.join(',')
+      puts "Downloading files: #{filenames}"
+      order.captions.each do |t|
+        @rev_client.save_attachment_content t.id, t.name
+      end
+    rescue Rev::BadRequestError => e
+      puts "Downloading captions failed with error code #{e.code}, message #{e.message}"
     end
   end
 
@@ -165,24 +206,37 @@ class RevCLI
     end
   end
 
-  def place(args)
+  def place_tc(args)
+    inputs = upload(args, 'audio/mpeg')
+    tc_options = Rev::TranscriptionOptions.new(inputs)
+    place_helper(inputs, { :transcription_options => tc_options })
+  end
+
+  def place_cp(args)
+    inputs = upload(args, 'video/mpeg')
+    cp_options = Rev::CaptionOptions.new(inputs, {:output_file_formats => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]] })
+    place_helper(inputs, { :caption_options => cp_options })
+  end
+
+  def help(*args)
+    puts "commands are: #{COMMANDS.join(' ')} help exit"
+  end
+  
+  private
+  
+  def upload(args, type)
     input_urls = args.map do |f|
       puts "Uploading #{f}"
-      @rev_client.upload_input(f, 'audio/mpeg')
+      @rev_client.upload_input(f, type)
     end
-
+    input_urls.map { |url| Rev::Input.new(:uri => url, :audio_length => 3) }
+  end
+  
+  def place_helper(inputs, options)
     payment = Rev::Payment.with_credit_card_on_file
-    inputs = input_urls.map { |url| Rev::Input.new(:uri => url, :audio_length => 3) }
-    tc_options = Rev::TranscriptionOptions.new(inputs)
+    options = options.merge({ :payment => payment, :client_ref => 'XB432423', :comment => 'Please work quickly' })
+    request = Rev::OrderRequest.new(payment, options)
 
-    request = Rev::OrderRequest.new(
-      payment,
-      :transcription_options => tc_options,
-      :client_ref => 'XB432423',
-      :comment => 'Please work quickly'
-    )
-
-    # act!
     begin
       new_order = @rev_client.submit_order(request)
       puts "New order: #{new_order}"
@@ -190,10 +244,7 @@ class RevCLI
       puts "Order placement failed with error code #{e.code}, message #{e.message}"
     end
   end
-
-  def help(*args)
-    puts "commands are: #{COMMANDS.join(' ')} help exit"
-  end
+  
 end
 
 cli = RevCLI.new

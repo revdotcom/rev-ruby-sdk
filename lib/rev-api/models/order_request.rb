@@ -3,9 +3,9 @@ require 'rev-api/api_serializable'
 module Rev
   # OrderRequest is used for constructing order 'spec' in consumer code and passing it into.
   # It consists of three main elements: :payment, :transcription_options and :notification.
-  # You can also supply reference number and customer comment
+  # You can also supply priority, reference number, and customer comment
   #
-  # @note http://www.rev.com/api/ordersposttranscription, http://www.rev.com/api/ordersposttranslation
+  # @note http://www.rev.com/api/ordersposttranscription, http://www.rev.com/api/ordersposttranslation, http://www.rev.com/api/orderspostcaption
   class OrderRequest < ApiSerializable
     # see {Rev::Payment}
     attr_reader :payment
@@ -15,6 +15,9 @@ module Rev
 
     # see {Rev::TranslationOptions}
     attr_reader :translation_options
+    
+    # see {Rev::CaptionOptions}
+    attr_reader :caption_options
 
     # see {Rev::Notification}
     attr_reader :notification
@@ -24,10 +27,20 @@ module Rev
 
     # a comment with any special messages about the order (optional)
     attr_reader :comment
+    
+    # a requested priority for the order, defaults to normal (optional)
+    attr_reader :priority
+    
+    # use to correctly set priority
+    PRIORITY = {
+      :normal => 'Normal',
+      :time_insensitivie => 'TimeInsensitivie'
+    }
 
     # @param payment [Payment] payment info
     # @param fields [Hash] of fields to initialize instance. See instance attributes for available fields.
     def initialize(payment, fields = {})
+      fields = { :priority => PRIORITY[:normal] }.merge(fields)
       super fields
       @payment = payment
     end
@@ -84,23 +97,30 @@ module Rev
     attr_reader :number, :expiration_month, :expiration_year, :cardholder, :billing_address, :saved_id
   end
 
-  # Transcription options. This section contains the input media that must be transferred to our servers
-  # using a POST to /inputs, and are referenced using the URIs returned by that call. We also support external links.
-  # Following points explain usage of inputs:
-  # - For each input, you must provide either uri or external_link, but not both. If both or neither is provided,
-  #   error is returned.
-  # - You should only provide an external_link if it links to page where the media can be found, rather than directly to
-  #   the media file, and that we will not attempt to do anything with the link when the API call is made.
-  #   This is in contrast to when you post to /inputs with a link to a media file - in that case we do download the file.
-  #   So the external_link should only be used when you can't link to the media file directly.
-  # - The external_link can contain anything you want, but if it's a YouTube link, we will attempt to determine the
-  #   duration of the video on that page.
-  # We also allow users of the api to specify if translation should be done using our Verbatim option (:verbatim => true)
-  # and to specify if Time stamps should be included (:timestamps => true).
-  class TranscriptionOptions < ApiSerializable
-    # Mandatory, contains list of media to transcribe. Must have at least one element.
+  # Superclass for the business-line options that handles capture and common validation of inputs.
+  class InputOptions < ApiSerializable
+    # Mandatory, contains list of inputs. Must have at least one element.
     attr_reader :inputs
 
+    # @param inputs [Array] list of inputs
+    # @param info [Hash] of fields to initialize instance.
+    def initialize(inputs, info = {})
+      super info
+      raise(ArgumentError, "inputs must have at least one element") unless validate_inputs(inputs)
+      @inputs = inputs
+    end
+
+    private
+    
+    def validate_inputs(inputs)
+      !inputs.nil? && inputs.length > 0
+    end
+  end
+
+  # Transcription options. This section contains the input media that must be transferred to our servers
+  # using a POST to /inputs, and are referenced using the URIs returned by that call. We also support external links.
+  # @see http://www.rev.com/api/ordersposttranscription
+  class TranscriptionOptions < InputOptions
     # Optional, should we transcribe the provided files verbatim? If true,
     # all filler words (i.e. umm, huh) will be included.
     attr_reader :verbatim
@@ -113,8 +133,7 @@ module Rev
     #        - :verbatim => true/false
     #        - :timestams => true/false
     def initialize(inputs, info = {})
-      super info
-      @inputs = inputs
+      super inputs, info
     end
   end
 
@@ -122,10 +141,8 @@ module Rev
   # servers using a POST to /inputs, and are referenced using the URIs returned by that call.
   # For each media, word count must be specified. The language code for the source and desitination
   # languages must also be specified.
-  class TranslationOptions < ApiSerializable
-    # Mandatory, contains list of media to transcribe. Must have at least one element.
-    attr_reader :inputs
-
+  # @see http://www.rev.com/api/ordersposttranslation
+  class TranslationOptions < InputOptions
     # Mandatory, source language code
     attr_reader :source_language_code
 
@@ -138,8 +155,34 @@ module Rev
     #        - :destination_language_code
     # @note For language codes refer to http://www.loc.gov/standards/iso639-2/php/code_list.php
     def initialize(inputs, info = {})
-      super(info)
-      @inputs = inputs
+      super inputs, info
+    end
+  end
+  
+  # Caption options. This section contains the input media that must be transferred to our servers
+  # using a POST to /inputs, and are referenced using the URIs returned by that call. We also support external links.
+  # @see http://www.rev.com/api/orderspostcaption
+  class CaptionOptions < InputOptions
+    # Array of file formats the captions should be delivered as.  (Optional, default is SubRip)
+    attr_reader :output_file_formats
+
+    # All supported output file formats
+    OUTPUT_FILE_FORMATS = {
+      :subrip => 'SubRip',
+      :scc => 'Scc',
+      :ttml => 'Ttml',
+      :qttext => 'QTtext'
+    }
+    
+    def initialize(inputs, info = {})
+      super(inputs, info)
+      raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
+    end
+    
+    private
+    
+    def validate_output_formats(formats)
+      formats.nil? || formats.select{|f| !OUTPUT_FILE_FORMATS.has_value?(f) }.empty?
     end
   end
 
@@ -149,11 +192,11 @@ module Rev
     attr_reader :word_length
 
     # Length of audio, in minutes (mandatory in case of inability to determine it automatically).
-    # Used within {Rev::OrderRequest::TranscriptionInfo}
+    # Used within {Rev::OrderRequest::TranscriptionInfo} and {Rev::OrderRequest::CaptionInfo}
     attr_reader :audio_length
 
     # Mandatory, URI of the media, as returned from the call to POST /inputs.
-    # :external_link might substitute :uri for Transcription.
+    # :external_link might substitute :uri for Transcription or Caption.
     attr_reader :uri
 
     # External URL, if sources wasn't POSTed as input (YouTube, Vimeo, Dropbox, etc)
