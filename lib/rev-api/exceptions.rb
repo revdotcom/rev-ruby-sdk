@@ -80,17 +80,6 @@ module Rev
     # 30011 Account Balance Limit Exceeded - if the order request specified payment using account balance, but doing so would exceed the user's balance limit
     ACCOUNT_BALANCE_LIMIT_EXCEEDED = 30011
 
-    # 30020 Missing Credit Card Info - if the order request specified payment using credit card, but did not provide the credit card info element
-    MISSING_CREDIT_CARD_INFO = 30020
-
-    # 30021 Invalid Saved Credit Card - if the order request specified payment using a saved credit card, but the specified credit card id was invalid
-    INVALID_SAVED_CREDIT_CARD = 30021
-
-    # 30023 Invalid Credit Card Details - if the order request specified payment using credit card, but some required credit card data elements were missing or had invalid values
-    INVALID_CREDIT_CARD_DETAILS = 30023
-
-    # 30024 Credit Card Authorization Failed - if the order request specified payment using credit card, but we could not charge the card
-    CREDIT_CARD_AUTHORIZATION_FAILED = 30024
   end
 
   module InputRequestErrorCodes

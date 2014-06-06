@@ -46,41 +46,23 @@ module Rev
     end
   end
 
-  # Payment Info. Payment can be done either by charging a credit card or by debiting the user's
-  # account balance. If using a credit card, then either the user's saved credit card can be used
-  # or credit card details provided.
-  #
-  # For credit card payments, if specifying the credit card details in the request, the required
-  # elements are the card number, cardholder name, expiration month and year, and billing zipcode.
-  # If using the user's saved card, you must currently specify the value "1" for the saved card id,
-  # as we currently only allow a single card to be saved for a user.
+  # Payment Info. Payment can only be done by debiting the user's account balance.
   class Payment < ApiSerializable
-    attr_accessor :type, :credit_card
+    attr_accessor :type
 
     # use to correctly set payment type
     TYPES = {
-      :credit_card => 'CreditCard',
       :account_balance => 'AccountBalance'
     }
 
     CC_ON_FILE_ID = 1
 
     # @param type [String] payment method
-    # @param credit_card [CreditCard] cc obj, if type is 'CreditCard'
-    def initialize(type, credit_card = nil)
+    def initialize(type)
       @type = type
-      @credit_card = credit_card unless credit_card.nil?
     end
 
     class << self
-      def with_credit_card_on_file()
-        Payment::new(TYPES[:credit_card], CreditCard.new(:saved_id => CC_ON_FILE_ID))
-      end
-
-      def with_saved_credit_card(credit_card)
-        Payment::new(TYPES[:credit_card], credit_card)
-      end
-
       def with_account_balance()
         Payment::new(TYPES[:account_balance])
       end        
@@ -90,11 +72,6 @@ module Rev
   # Billing address
   class BillingAddress < ApiSerializable
     attr_reader :street, :street2, :city, :state, :zip, :country_alpha2
-  end
-
-  # Credit Card
-  class CreditCard < ApiSerializable
-    attr_reader :number, :expiration_month, :expiration_year, :cardholder, :billing_address, :saved_id
   end
 
   # Superclass for the business-line options that handles capture and common validation of inputs.
