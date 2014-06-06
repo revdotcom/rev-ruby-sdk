@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.revtrunk.com/api/v1/orders
     body:
       encoding: UTF-8
-      string: ! '{"payment":{"type":"AccountBalance","credit_card":null}}'
+      string: ! '{"payment":{"type":"AccountBalance"}}'
     headers:
       Content-Type:
       - application/json
