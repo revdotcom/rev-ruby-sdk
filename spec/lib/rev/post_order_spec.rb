@@ -67,6 +67,38 @@ describe 'POST /orders' do
     end
   end
 
+  it 'must default to account balance if payment property not set' do
+    VCR.insert_cassette 'submit_tc_order_without_specifying_payment'
+
+    request = Rev::OrderRequest.new(
+        balance_payment,
+        :transcription_options => transcription_options
+    )
+
+    new_order_num = client.submit_order(request)
+
+    new_order_num.must_equal 'TC0406615008'
+    expected_body = {
+        'payment' => {
+            'type' => 'AccountBalance'
+        },
+        'priority' => Rev::OrderRequest::PRIORITY[:normal],
+        'transcription_options' => {
+            'inputs' => [
+                { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' },
+                { 'external_link' => 'https://vimeo.com/7976699', 'audio_length' => 15 }
+            ],
+            'verbatim' => true,
+            'timestamps' => true
+        }
+    }
+    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
+      req.headers['Content-Type'] == 'application/json'
+      actual_body = JSON.load req.body
+      actual_body.must_equal expected_body
+    end
+  end
+
   it 'must raise BadRequest error in case of request validation failure' do
     VCR.insert_cassette 'submit_tc_order_with_invalid_request'
 

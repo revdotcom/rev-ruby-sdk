@@ -47,6 +47,7 @@ module Rev
   end
 
   # Payment Info. Payment can only be done by debiting the user's account balance.
+  # @deprecated setting the payment is no longer necessary. All orders now default to :account_balance
   class Payment < ApiSerializable
     attr_accessor :type
 
@@ -59,6 +60,7 @@ module Rev
 
     # @param type [String] payment method
     def initialize(type)
+      warn "[DEPRECATION] `Payment` option is now optional, since it will always default to AccountBalance"
       @type = type
     end
 
