@@ -39,10 +39,18 @@ module Rev
 
     # @param payment [Payment] payment info
     # @param fields [Hash] of fields to initialize instance. See instance attributes for available fields.
-    def initialize(payment, fields = {})
+    # @deprecated payment always defaults to :accoount_balance
+    def self.new_with_payment(payment, fields = {})
       fields = { :priority => PRIORITY[:normal] }.merge(fields)
       super fields
       @payment = payment
+    end
+
+    # @param fields [Hash] of fields to initialize instance. See instance attributes for available fields.
+    def initialize(fields = {})
+      fields = { :priority => PRIORITY[:normal] }.merge(fields)
+      @payment = Rev::Payment.with_account_balance
+      super fields
     end
   end
 

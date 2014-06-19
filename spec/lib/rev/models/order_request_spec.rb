@@ -11,18 +11,18 @@ describe 'OrderRequest' do
   end
 
   it 'defaults to normal priority' do
-    order = Rev::OrderRequest.new(Rev::Payment.with_account_balance, {})
+    order = Rev::OrderRequest.new({})
     order.priority.must_equal Rev::OrderRequest::PRIORITY[:normal]
   end
   
   it 'accepts priority during init' do
     priority = Rev::OrderRequest::PRIORITY[:time_insensitivie]
-    order = Rev::OrderRequest.new(Rev::Payment.with_account_balance, { 'priority' => priority })
+    order = Rev::OrderRequest.new({ 'priority' => priority })
     order.priority.must_equal priority
   end
   
   it 'has caption options' do
-    order = Rev::OrderRequest.new(Rev::Payment.with_account_balance, {})
+    order = Rev::OrderRequest.new({})
     order.must_respond_to :caption_options
   end
   

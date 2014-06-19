@@ -39,7 +39,6 @@ describe 'POST /orders' do
     VCR.insert_cassette 'submit_tc_order_with_account_balance'
 
     request = Rev::OrderRequest.new(
-      balance_payment,
       :transcription_options => transcription_options
     )
 
@@ -71,7 +70,6 @@ describe 'POST /orders' do
     VCR.insert_cassette 'submit_tc_order_without_specifying_payment'
 
     request = Rev::OrderRequest.new(
-        balance_payment,
         :transcription_options => transcription_options
     )
 
@@ -104,7 +102,6 @@ describe 'POST /orders' do
 
     # example - missing transcription options
     request = Rev::OrderRequest.new(
-      balance_payment
     )
 
     action = lambda { client.submit_order(request) }
@@ -117,7 +114,6 @@ describe 'POST /orders' do
     VCR.insert_cassette 'submit_tr_order'
 
     request = Rev::OrderRequest.new(
-      balance_payment,
       :translation_options => translation_options
     )
 
@@ -147,7 +143,7 @@ describe 'POST /orders' do
   it 'must submit caption order with options' do
     VCR.insert_cassette 'submit_cp_order'
     
-    request = Rev::OrderRequest.new(balance_payment, :caption_options => caption_options)
+    request = Rev::OrderRequest.new(:caption_options => caption_options)
     
     new_order_num = client.submit_order(request)
     
