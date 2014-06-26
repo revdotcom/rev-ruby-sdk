@@ -233,7 +233,6 @@ class RevCLI
   end
   
   def place_helper(inputs, options)
-    payment = Rev::Payment.with_credit_card_on_file
     options = options.merge({ :payment => payment, :client_ref => 'XB432423', :comment => 'Please work quickly' })
     request = Rev::OrderRequest.new(payment, options)
 
