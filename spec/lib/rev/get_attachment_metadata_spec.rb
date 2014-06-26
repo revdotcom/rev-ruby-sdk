@@ -13,7 +13,7 @@ describe 'GET /attachments/{id}' do
     attachment.id.must_equal 'LufnCVQCAAAAAAAA'
     attachment.name.must_equal 'How can I find success in life.mp4'
     attachment.kind.must_equal 'media'
-    attachment.audio_length.must_equal 5
+    attachment.audio_length_seconds.must_equal 300
     attachment.links.must_be_instance_of Array
     attachment.links.size.must_equal 1
     attachment.links.first.rel.must_equal 'content'

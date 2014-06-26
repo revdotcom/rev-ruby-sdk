@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rev-api (1.0.4)
+    rev-api (2.0.0)
       httparty (~> 0.11, >= 0.11.0)
 
 GEM

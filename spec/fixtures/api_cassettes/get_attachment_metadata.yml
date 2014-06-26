@@ -36,7 +36,7 @@ http_interactions:
       - '207'
     body:
       encoding: US-ASCII
-      string: ! '{"kind":"media","name":"How can I find success in life.mp4","id":"LufnCVQCAAAAAAAA","audio_length":5,"links":[{"rel":"content","href":"https://www.revtrunk.com/api/v1/attachments/LufnCVQCAAAAAAAA/content"}]}'
+      string: ! '{"kind":"media","name":"How can I find success in life.mp4","id":"LufnCVQCAAAAAAAA","audio_length_seconds":300,"links":[{"rel":"content","href":"https://www.revtrunk.com/api/v1/attachments/LufnCVQCAAAAAAAA/content"}]}'
     http_version: 
   recorded_at: Thu, 12 Sep 2013 21:49:24 GMT
 recorded_with: VCR 2.5.0

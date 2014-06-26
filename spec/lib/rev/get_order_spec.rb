@@ -39,7 +39,7 @@ describe 'GET /orders/{order_num}' do
       end
 
       it 'must have transcription info' do
-        order.transcription.total_length.must_equal 10
+        order.transcription.total_length_seconds.must_equal 600
         order.transcription.verbatim.must_equal false
         order.transcription.timestamps.must_equal false
       end

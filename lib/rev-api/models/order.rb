@@ -65,18 +65,24 @@ module Rev
   # Additional information specific to transcription orders,
   # such as total length in minutes, verbatim and timestamps flags
   class TranscriptionInfo < ApiSerializable
-    attr_reader :total_length, :verbatim, :timestamps
+    attr_reader :total_length_seconds, :verbatim, :timestamps
+    
+    # @deprecated use :total_length_seconds instead
+    attr_reader :total_length
   end
   
   # Additional information specific to caption orders
   class CaptionInfo < ApiSerializable
+    attr_reader :total_length_seconds
+    
+    # @deprecated use :total_length_seconds instead
     attr_reader :total_length
   end
 
   # Represents order attachment - logical document associated with order
   class Attachment < ApiSerializable
-    attr_reader :kind, :name, :id, :audio_length, :word_count, :links
-
+    attr_reader :kind, :name, :id, :audio_length_seconds, :word_count, :links, :video_length_seconds
+    
     KINDS = {
       :transcript => 'transcript',
       :translation => 'translation',

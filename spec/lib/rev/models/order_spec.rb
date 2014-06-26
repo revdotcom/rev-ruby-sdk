@@ -5,7 +5,7 @@ describe 'Order' do
     Rev::Order.new (
       { 'attachments' => { },
         'comments' => {},
-        'caption' => { 'total_length' => 5 }
+        'caption' => { 'total_length_seconds' => 300 }
       }
     )
   }
@@ -49,9 +49,9 @@ describe 'Order' do
   end # Attachments
   
   describe 'CaptionInfo' do
-    it 'has total_length' do
+    it 'has total_length_seconds' do
       info = Rev::CaptionInfo.new({})
-      assert_respond_to info, 'total_length'
+      assert_respond_to info, 'total_length_seconds'
     end
   end # CaptionInfo
 end

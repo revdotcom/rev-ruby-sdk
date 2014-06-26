@@ -17,7 +17,7 @@ describe 'POST /orders' do
   let(:transcription_inputs) {
       inputs = []
       inputs << Rev::Input.new(:external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')
-      inputs << Rev::Input.new(:audio_length => 15, :external_link => 'https://vimeo.com/7976699')
+      inputs << Rev::Input.new(:audio_length_seconds => 900, :external_link => 'https://vimeo.com/7976699')
   }
   let(:translation_inputs) {
     inputs = []
@@ -25,7 +25,7 @@ describe 'POST /orders' do
   }
   let(:caption_inputs) {
     inputs = []
-    inputs << Rev::Input.new(:external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')
+    inputs << Rev::Input.new(:video_length_seconds => 900, :external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')
   }
   let(:transcription_options) { Rev::TranscriptionOptions.new(transcription_inputs,
     :verbatim => true, :timestamps => true) }
@@ -53,7 +53,7 @@ describe 'POST /orders' do
       'transcription_options' => {
         'inputs' => [
           { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' },
-          { 'external_link' => 'https://vimeo.com/7976699', 'audio_length' => 15 }
+          { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900 }
         ],
         'verbatim' => true,
         'timestamps' => true
@@ -84,7 +84,7 @@ describe 'POST /orders' do
         'transcription_options' => {
             'inputs' => [
                 { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' },
-                { 'external_link' => 'https://vimeo.com/7976699', 'audio_length' => 15 }
+                { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900 }
             ],
             'verbatim' => true,
             'timestamps' => true
@@ -155,7 +155,7 @@ describe 'POST /orders' do
       'priority' => Rev::OrderRequest::PRIORITY[:normal],
       'caption_options' => {
         'inputs'=> [
-          { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
+          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
         ],
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }

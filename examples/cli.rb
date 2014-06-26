@@ -207,13 +207,15 @@ class RevCLI
   end
 
   def place_tc(args)
-    inputs = upload(args, 'audio/mpeg')
+    input_urls = upload(args, 'audio/mpeg')
+    inputs = input_urls.map { |url| Rev::Input.new(:uri => url, :audio_length_seconds => 180) }
     tc_options = Rev::TranscriptionOptions.new(inputs)
     place_helper(inputs, { :transcription_options => tc_options })
   end
 
   def place_cp(args)
-    inputs = upload(args, 'video/mpeg')
+    input_urls = upload(args, 'video/mpeg')
+    inputs = input_urls.map { |url| Rev::Input.new(:uri => url, :video_length_seconds => 180) }
     cp_options = Rev::CaptionOptions.new(inputs, {:output_file_formats => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]] })
     place_helper(inputs, { :caption_options => cp_options })
   end
@@ -229,12 +231,12 @@ class RevCLI
       puts "Uploading #{f}"
       @rev_client.upload_input(f, type)
     end
-    input_urls.map { |url| Rev::Input.new(:uri => url, :audio_length => 3) }
+    input_urls
   end
   
   def place_helper(inputs, options)
-    options = options.merge({ :payment => payment, :client_ref => 'XB432423', :comment => 'Please work quickly' })
-    request = Rev::OrderRequest.new(payment, options)
+    options = options.merge({ :client_ref => 'XB432423', :comment => 'Please work quickly' })
+    request = Rev::OrderRequest.new(options)
 
     begin
       new_order = @rev_client.submit_order(request)
