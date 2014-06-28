@@ -178,9 +178,13 @@ module Rev
     #  Mandatory when used with {Rev::OrderRequest::TranslationInfo}, length of document, in words
     attr_reader :word_length
 
-    # Length of audio, in minutes (mandatory in case of inability to determine it automatically).
-    # Used within {Rev::OrderRequest::TranscriptionInfo} and {Rev::OrderRequest::CaptionInfo}
-    attr_reader :audio_length
+    # Length of audio in seconds (mandatory in case of inability to determine it automatically).
+    # Used within {Rev::OrderRequest::TranscriptionInfo}
+    attr_reader :audio_length_seconds
+    
+    # Length of video in seconds (mandatory in case of inability to determine it automatically).
+    # Used within {Rev::OrderRequest::CaptionInfo}
+    attr_reader :video_length_seconds
 
     # Mandatory, URI of the media, as returned from the call to POST /inputs.
     # :external_link might substitute :uri for Transcription or Caption.
