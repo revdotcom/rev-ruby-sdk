@@ -118,7 +118,7 @@ module Rev
     # @param inputs [Array] list of inputs
     # @param info [Hash] of fields to initialize instance. May contain:
     #        - :verbatim => true/false
-    #        - :timestams => true/false
+    #        - :timestamps => true/false
     def initialize(inputs, info = {})
       super inputs, info
     end
