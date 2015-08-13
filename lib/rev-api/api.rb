@@ -35,7 +35,7 @@ module Rev
     #
     # @note http://www.rev.com/api/ordersget
     # @param page [Int, nil] 0-based page number, defaults to 0
-    # @return [OrdersListPage] paged result cointaining 'orders'
+    # @return [OrdersListPage] paged result containing 'orders'
     def get_orders_page(page = 0)
       response = @client.get("/orders?page=#{page.to_i}")
       Api.verify_get_response(response)
@@ -57,6 +57,17 @@ module Rev
         break if (page * orders_page.results_per_page >= orders_page.total_count)
       end
       orders
+    end
+
+    # Loads orders whose associated reference ID is the given client_ref
+    #
+    # @note http://www.rev.com/api/ordersget
+    # @param client_ref [String, nil] client reference, defaults to nil
+    # @return [OrdersListPage] paged result containing 'orders'
+    def get_orders_by_client_ref(client_ref = nil)
+      response = @client.get("/orders?clientRef=#{client_ref}")
+      Api.verify_get_response(response)
+      OrdersListPage.new(Api.parse(response))
     end
 
     # Returns Order given an order number.
