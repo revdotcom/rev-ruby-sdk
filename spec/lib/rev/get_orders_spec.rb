@@ -33,6 +33,39 @@ describe 'GET /orders' do
     end
   end
 
+  describe 'GET /orders without client reference' do
+    it 'must get first page of existing orders' do
+      VCR.insert_cassette 'get_orders_with_no_clientRef'
+
+      page = client.get_orders_by_client_ref
+
+      assert_requested :get, /.*\/api\/v1\/orders\?clientRef=/, :times => 1
+
+      page.orders.must_be_instance_of Array
+      page.results_per_page.must_equal 25
+      page.orders.size.must_equal 6
+      page.page.must_equal 0
+      page.total_count.must_equal 6
+    end
+  end
+
+  describe 'GET /orders?clientRef={client_ref}' do
+    it 'must load order with given reference id' do
+      VCR.insert_cassette 'get_orders_with_clientRef'
+
+      page = client.get_orders_by_client_ref('4410704484001')
+
+      assert_requested :get, /.*\/api\/v1\/orders\?clientRef=4410704484001/, :times => 1
+
+      page.orders.must_be_instance_of Array
+      page.results_per_page.must_equal 25
+      page.orders.size.must_equal 1
+      page.page.must_equal 0
+      page.total_count.must_equal 1
+      page.orders[0].order_number.must_equal 'CP0180436196'
+    end
+  end
+
   after do
     VCR.eject_cassette
   end
