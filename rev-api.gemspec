@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = "Communicate with Rev.com API using plain Ruby objects without bothering about HTTP"
   s.authors     = ["Rev.com, Inc"]
   s.email       = 'api@rev.com'
-  s.homepage    = 'http://www.rev.com/api'
+  s.homepage    = 'https://www.rev.com/api'
   s.license     = 'Apache License 2.0'
 
   s.files         = `git ls-files`.split("\n")

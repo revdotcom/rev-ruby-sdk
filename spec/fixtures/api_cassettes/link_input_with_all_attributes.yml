@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.revtrunk.com/api/v1/inputs
     body:
       encoding: UTF-8
-      string: ! '{"url":"http://www.rev.com/content/img/rev/rev_logo_colored_top.png","filename":"sourcedocument.png","content_type":"image/png"}'
+      string: ! '{"url":"https://www.rev.com/content/img/rev/rev_logo_colored_top.png","filename":"sourcedocument.png","content_type":"image/png"}'
     headers:
       Content-Type:
       - application/json
@@ -39,6 +39,6 @@ http_interactions:
     body:
       encoding: US-ASCII
       string: ''
-    http_version: 
+    http_version:
   recorded_at: Tue, 17 Sep 2013 21:11:45 GMT
 recorded_with: VCR 2.5.0

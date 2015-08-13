@@ -4,7 +4,7 @@
 [![Code Climate](https://codeclimate.com/github/revdotcom/rev-ruby-sdk.png)](https://codeclimate.com/github/revdotcom/rev-ruby-sdk)
 [![Coverage Status](https://coveralls.io/repos/revdotcom/rev-ruby-sdk/badge.png)](https://coveralls.io/r/revdotcom/rev-ruby-sdk)
 
-[Reference](http://www.rev.com/api/docs) | [RDocs](http://rubydoc.info/github/revdotcom/rev-ruby-sdk/master/frames)
+[Reference](https://www.rev.com/api/docs) | [RDocs](http://rubydoc.info/github/revdotcom/rev-ruby-sdk/master/frames)
 
 rev-ruby-sdk
 ------------
@@ -12,10 +12,10 @@ rev-ruby-sdk
 ### Background
 
 Rev.com provides transcription and translation services powered by humans. The Rev.com API allows you to tap these services
-with no manual steps. It's a RESTful API, documented at <http://www.rev.com/api/docs>.
+with no manual steps. It's a RESTful API, documented at <https://www.rev.com/api/docs>.
 
 The Ruby SDK for the Rev API provides a convenient Ruby wrapper for the Rev.com API. All operations of the API, as described
-at <http://www.rev.com/api/operations>, are supported.
+at <https://www.rev.com/api/operations>, are supported.
 
 ### Install
 
@@ -33,7 +33,7 @@ require 'rev-api'
 
 ### Authentication
 
-If you are building a new API client, you must first obtain a client API key, which you can do at <http://www.rev.com/api>.
+If you are building a new API client, you must first obtain a client API key, which you can do at <https://www.rev.com/api>.
 
 All operations in the API are performed on behalf of a Rev customer, identified by their user API key. The client key / user
 key pair is used to authenticate each API operation. Once you have the two keys, you can create a new Rev.com API client:
@@ -45,7 +45,7 @@ require 'rev-api'
 rev_client = Rev.new('your_client_key', 'your_user_key')
 ```
 
-You can read more about authentication in the Rev.com API at <http://www.rev.com/api/security>
+You can read more about authentication in the Rev.com API at <https://www.rev.com/api/security>
 
 ### Sandbox
 
@@ -74,6 +74,7 @@ rev_client = Rev.new('your_client_key', 'your_user_key')
 ```ruby
 orders_page = rev_client.get_orders_page(1); # get a single page of orders
 all_orders = rev_client.get_all_orders; # get first page of orders history
+orders_by_client_ref = rev_client.get_orders_by_client_ref('some_ref'); # get orders with reference id of 'some_ref'
 ```
 
 #### Get a single order by order number
@@ -106,7 +107,7 @@ Refer to `cli.rb` in the `examples` directory for a full example illustrating pl
 
 [YARD documentation](http://rubydoc.info/github/revdotcom/rev-ruby-sdk/master/frames) can be generated locally by running `rake yard` command, and will be placed in the `doc` directory.
 
-You can find API documentation at <http://www.rev.com/api/docs>.
+You can find API documentation at <https://www.rev.com/api/docs>.
 
 ### Support
 

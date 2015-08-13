@@ -6,7 +6,7 @@ describe 'POST /inputs' do
   it 'must link external file with explicit content-type and file' do
     VCR.insert_cassette 'link_input_with_all_attributes'
 
-    link = 'http://www.rev.com/content/img/rev/rev_logo_colored_top.png'
+    link = 'https://www.rev.com/content/img/rev/rev_logo_colored_top.png'
     filename = 'sourcedocument.png'
     content_type = 'image/png'
     new_input_location = client.create_input_from_link(link, filename, content_type)
@@ -27,7 +27,7 @@ describe 'POST /inputs' do
   it 'must link external file without content-type and filename' do
     VCR.insert_cassette 'link_input'
 
-    link = 'http://www.rev.com/content/img/rev/rev_logo_colored_top.png'
+    link = 'https://www.rev.com/content/img/rev/rev_logo_colored_top.png'
     new_input_location = client.create_input_from_link(link)
 
     new_input_location.must_match 'urn:foxtranslate:inputmedia:'

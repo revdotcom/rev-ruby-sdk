@@ -33,6 +33,29 @@ describe 'GET /orders' do
     end
   end
 
+  describe 'GET /orders without client reference raises' do
+    it 'must raise NotAcceptableError' do
+      assert_raises(ArgumentError) { client.get_orders_by_client_ref }
+    end
+  end
+
+  describe 'GET /orders?page=0&clientRef={client_ref}' do
+    it 'must load order with given reference id' do
+      VCR.insert_cassette 'get_orders_with_clientRef'
+
+      page = client.get_orders_by_client_ref('my ref')
+
+      assert_requested :get, /.*\/api\/v1\/orders\?clientRef=my%20ref&page=0/, :times => 1
+
+      page.orders.must_be_instance_of Array
+      page.results_per_page.must_equal 25
+      page.orders.size.must_equal 1
+      page.page.must_equal 0
+      page.total_count.must_equal 1
+      page.orders[0].order_number.must_equal 'CP0180436196'
+    end
+  end
+
   after do
     VCR.eject_cassette
   end

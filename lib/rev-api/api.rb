@@ -22,7 +22,7 @@ module Rev
     # into Rev::Api ctor
     SANDBOX_HOST = 'api-sandbox.rev.com'
 
-    # @note http://www.rev.com/api/security
+    # @note https://www.rev.com/api/security
     # @param client_api_key [String] secret key specific to each partner that wishes to use the Rev API
     # @param user_api_key [String] secret key specific to a Rev user, which identifies the user account under whose privileges the requested operation executes
     # @param host [String] use {Rev::Api::PRODUCTION_HOST} or {Rev::Api::SANDBOX_HOST}. Production is default value
@@ -33,9 +33,9 @@ module Rev
 
     # Loads single page of existing orders for current client
     #
-    # @note http://www.rev.com/api/ordersget
+    # @note https://www.rev.com/api/ordersget
     # @param page [Int, nil] 0-based page number, defaults to 0
-    # @return [OrdersListPage] paged result cointaining 'orders'
+    # @return [OrdersListPage] paged result containing 'orders'
     def get_orders_page(page = 0)
       response = @client.get("/orders?page=#{page.to_i}")
       Api.verify_get_response(response)
@@ -45,7 +45,7 @@ module Rev
     # Loads all orders for current client. Works by calling get_orders_page multiple times.
     # Use with caution if your order list might be large.
     #
-    # @note http://www.rev.com/api/ordersget
+    # @note https://www.rev.com/api/ordersget
     # @return [Array of Order] list of orders
     def get_all_orders
       orders = []
@@ -59,9 +59,24 @@ module Rev
       orders
     end
 
+    # Loads orders whose associated reference ID is the given client_ref
+    #
+    # @note https://www.rev.com/api/ordersget
+    # @param client_ref [String, nil] client reference (required)
+    # @param page [Int, nil] 0-based page number, defaults to 0
+    # @return [OrdersListPage] paged result containing 'orders' list
+    # @raise [ArgumentError] client_ref is nil
+    def get_orders_by_client_ref(client_ref, page = 0)
+      raise ArgumentError if client_ref.nil?
+
+      response = @client.get("/orders?clientRef=#{URI.escape(client_ref)}&page=#{page.to_i}")
+      Api.verify_get_response(response)
+      OrdersListPage.new(Api.parse(response))
+    end
+
     # Returns Order given an order number.
     #
-    # @note http://www.rev.com/api/ordersgetone
+    # @note https://www.rev.com/api/ordersgetone
     # @param number [String] order number, like 'TCXXXXXXXX'
     # @return [Order] order obj
     def get_order(number)
@@ -72,7 +87,7 @@ module Rev
 
     # Cancel an order by number. If cancellation is not allowed, Rev::Api::BadRequestError is raised.
     #
-    # @note http://www.rev.com/api/orderscancel
+    # @note https://www.rev.com/api/orderscancel
     # @param number [String] order number
     # @return [Boolean] true on success, raised Exception from Rev::Api namespace otherwise
     def cancel_order(number)
@@ -85,7 +100,7 @@ module Rev
     # Use this method to retrieve information about an order attachment (either transcript,
     # translation, or source file).
     #
-    # @note http://www.rev.com/api/attachmentsget
+    # @note https://www.rev.com/api/attachmentsget
     # @param id [String] attachment id, as returned in info about an order
     # @return [Attachment] attachment object
     def get_attachment_metadata(id)
@@ -101,7 +116,7 @@ module Rev
     # representation, specified via a mime-type.
     #
     # See {Rev::Order::Attachment::REPRESENTATIONS} hash, which contains symbols for currently supported mime types.
-    # The authoritative list is in the API documentation at http://www.rev.com/api/attachmentsgetcontent
+    # The authoritative list is in the API documentation at https://www.rev.com/api/attachmentsgetcontent
     #
     # If a block is given, the response is passed to the block directly, to allow progressive reading of the data.
     # In this case, the block must itself check for error responses, using Api.verify_get_response.
@@ -136,7 +151,7 @@ module Rev
     # representation, specified via a mime-type.
     #
     # See {Rev::Order::Attachment::REPRESENTATIONS} hash, which contains symbols for currently supported mime types.
-    # The authoritative list is in the API documentation at http://www.rev.com/api/attachmentsgetcontent
+    # The authoritative list is in the API documentation at https://www.rev.com/api/attachmentsgetcontent
     #
     # @param id [String] attachment id
     # @param path [String, nil] path to file into which the content is to be saved.
@@ -178,7 +193,7 @@ module Rev
     end
 
     # Submit a new order using {Rev::OrderRequest}.
-    # @note http://www.rev.com/api/ordersposttranscription - for full information
+    # @note https://www.rev.com/api/ordersposttranscription - for full information
     #
     # @param order_request [OrderRequest] object specifying payment, inputs, options and notification info.
     #        inputs must previously be uploaded using upload_input or create_input_from_link
@@ -194,7 +209,7 @@ module Rev
     end
 
     # Upload given local file directly as source input for order.
-    # @note http://www.rev.com/api/inputspost
+    # @note https://www.rev.com/api/inputspost
     #
     # @param path [String] mandatory, path to local file (relative or absolute) to upload
     # @param content_type [String] mandatory, content-type of the file you're uploading
@@ -219,7 +234,7 @@ module Rev
     end
 
     # Request creation of a source input based on an external URL which the server will attempt to download.
-    # @note http://www.rev.com/api/inputspost
+    # @note https://www.rev.com/api/inputspost
     #
     # @param url [String] mandatory, URL where the media can be retrieved. Must be publicly accessible.
     #        HTTPS urls are ok as long as the site in question has a valid certificate
@@ -271,7 +286,7 @@ module Rev
 
       # (see #verify_get_response)
       def verify_post_response(response)
-        # see http://www.rev.com/api/errorhandling
+        # see https://www.rev.com/api/errorhandling
         unless response.response.instance_of?(Net::HTTPCreated) || response.response.instance_of?(Net::HTTPNoContent)
           Api.handle_error(response)
         end

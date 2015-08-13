@@ -84,7 +84,7 @@ module Rev
 
   module InputRequestErrorCodes
     # 10001 Unsupported Content Type – if the content type of the media is not currently supported by our system.
-    # Supported media types for inputs are listed in http://www.rev.com/api/inputspost
+    # Supported media types for inputs are listed in https://www.rev.com/api/inputspost
     UNSUPPORTED_CONTENT_TYPE = 10001
 
     # 10002 Could not retrieve file – if we could not retrieve the file from the specified location.

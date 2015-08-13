@@ -27,6 +27,6 @@ describe Rev::HttpClient do
       'Authorization' => "Rev foo:bar",
       'User-Agent' => Rev::HttpClient::USER_AGENT
     }
-  end  
+  end
 end
 

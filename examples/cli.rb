@@ -11,7 +11,7 @@ require 'pp'
 # ruby examples/cli.rb --sandbox --client-key your_client_key --user-key your_user_key
 
 class RevCLI
-  COMMANDS = %w{help get list transcripts captions dl_transcripts dl_captions dl_sources place_tc place_cp cancel}
+  COMMANDS = %w{help get get_by_client_ref list transcripts captions dl_transcripts dl_captions dl_sources place_tc place_cp cancel}
 
   def initialize
     options = { :environment => Rev::Api::PRODUCTION_HOST, :verbatim => false, :timestamps => false }
@@ -92,6 +92,24 @@ class RevCLI
     orders.each { |o| puts("#{o.order_number}") }
 
     puts 'There are no orders placed so far.' if orders.empty?
+  end
+
+  def get_by_client_ref(args)
+    # client ref can contain spaces, so we have to join client ref from pieces
+    if (args.last == '0' || args.last.to_i > 0)
+      client_ref = args[0..-2].join(' ')
+    else
+      client_ref = args.join(' ')
+    end
+
+    client_ref = client_ref.gsub('\'', '').gsub('"', '')
+    page = args.last.nil? ? 0: args.last.to_i
+
+    orders_first_page = @rev_client.get_orders_by_client_ref(client_ref, page)
+    puts "Found #{orders_first_page.total_count} order(s), showing page #{page}. Pass page number as second argument"
+    orders_first_page.orders.each { |o| puts ("#{o.client_ref}: #{o.order_number}") }
+
+    puts "There are no orders associated with the given client reference: #{client_ref}" if orders_first_page.orders.empty?
   end
 
   def transcripts(args)
@@ -221,11 +239,11 @@ class RevCLI
   end
 
   def help(*args)
-    puts "commands are: #{COMMANDS.join(' ')} help exit"
+    puts "commands are: #{COMMANDS.join(' ')} exit"
   end
-  
+
   private
-  
+
   def upload(args, type)
     input_urls = args.map do |f|
       puts "Uploading #{f}"
@@ -233,7 +251,7 @@ class RevCLI
     end
     input_urls
   end
-  
+
   def place_helper(inputs, options)
     options = options.merge({ :client_ref => 'XB432423', :comment => 'Please work quickly' })
     request = Rev::OrderRequest.new(options)
@@ -245,7 +263,7 @@ class RevCLI
       puts "Order placement failed with error code #{e.code}, message #{e.message}"
     end
   end
-  
+
 end
 
 cli = RevCLI.new
