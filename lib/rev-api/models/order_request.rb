@@ -211,7 +211,7 @@ module Rev
     #        - :final_only - (the default), notification is sent only when the order is complete
     def initialize(url, level = nil)
       @url = url
-      @level = level ? level : LEVEL[:final_only]
+      @level = level ? level : LEVELS[:final_only]
     end
   end
 end
