@@ -157,8 +157,13 @@ module Rev
     OUTPUT_FILE_FORMATS = {
       :subrip => 'SubRip',
       :scc => 'Scc',
+      :mcc => 'Mcc',
       :ttml => 'Ttml',
-      :qttext => 'QTtext'
+      :qttext => 'QTtext',
+      :transcript => 'Transcript',
+      :webvtt => 'WebVtt',
+      :dfxp => 'Dfxp',
+      :cheetahcap => 'CheetahCap'
     }
 
     def initialize(inputs, info = {})

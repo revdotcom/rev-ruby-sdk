@@ -75,8 +75,13 @@ describe 'OrderRequest' do
     it 'has output file formats hash' do
       Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip].must_equal 'SubRip'
       Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc].must_equal 'Scc'
+      Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:mcc].must_equal 'Mcc'
       Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:ttml].must_equal 'Ttml'
       Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:qttext].must_equal 'QTtext'
+      Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:transcript].must_equal 'Transcript'
+      Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:webvtt].must_equal 'WebVtt'
+      Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:dfxp].must_equal 'Dfxp'
+      Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:cheetahcap].must_equal 'CheetahCap'
     end
 
     it 'rejects unknowns file formats' do
