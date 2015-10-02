@@ -115,7 +115,6 @@ If you have any questions or suggestions for improvement, email us directly at a
 
 ### Compatibility
 
-- MRI 1.9.3
 - MRI 2.0.0
 
 ### Tests
