@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
   s.name        = 'rev-api'
   s.version     = Rev::VERSION
   s.platform    = Gem::Platform::RUBY
-  s.required_ruby_version = '>= 1.9.3'
+  s.required_ruby_version = '>= 2.0.0'
   s.date        = Date.today.to_s
   s.summary     = "Ruby wrapper for Rev.com API"
   s.description = "Communicate with Rev.com API using plain Ruby objects without bothering about HTTP"
