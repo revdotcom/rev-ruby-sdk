@@ -68,7 +68,6 @@ module Rev
 
     # @param type [String] payment method
     def initialize(type)
-      warn "[DEPRECATION] `Payment` option is now optional, since it will always default to AccountBalance"
       @type = type
     end
 
