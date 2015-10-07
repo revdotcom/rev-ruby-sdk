@@ -152,6 +152,9 @@ module Rev
     # Array of file formats the captions should be delivered as.  (Optional, default is SubRip)
     attr_reader :output_file_formats
 
+    # Optional, a list of comma-separated language codes to request foreign language subtitles
+    attr_reader :subtitle_languages
+
     # All supported output file formats
     OUTPUT_FILE_FORMATS = {
       :subrip => 'SubRip',
@@ -165,6 +168,10 @@ module Rev
       :cheetahcap => 'CheetahCap'
     }
 
+    # @param inputs [Array] list of inputs
+    # @param info [Hash] of fields to initialize instance. May contain:
+    #        - :subtitle_languages
+    # @see TranslationOptions for a list of language codes.
     def initialize(inputs, info = {})
       super(inputs, info)
       raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
