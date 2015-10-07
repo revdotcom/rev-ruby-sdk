@@ -34,6 +34,10 @@ describe 'POST /orders' do
   let(:caption_options) {
     Rev::CaptionOptions.new(caption_inputs, :output_file_formats => ['SubRip'])
   }
+  let(:subtitle_options) {
+    Rev::CaptionOptions.new(caption_inputs, :subtitle_languages => ['es','it'],
+    :output_file_formats => ['SubRip'])
+  }
 
   it 'must place order using account balance' do
     VCR.insert_cassette 'submit_tc_order_with_account_balance'
@@ -139,14 +143,14 @@ describe 'POST /orders' do
       actual_body.must_equal expected_body
     end
   end
-  
+
   it 'must submit caption order with options' do
     VCR.insert_cassette 'submit_cp_order'
-    
+
     request = Rev::OrderRequest.new(:caption_options => caption_options)
-    
+
     new_order_num = client.submit_order(request)
-    
+
     new_order_num.must_equal 'CP12345'
     expected_body = {
       'payment' => {
@@ -157,6 +161,34 @@ describe 'POST /orders' do
         'inputs'=> [
           { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
         ],
+        'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
+      }
+    }
+    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
+      req.headers['Content-Type'] == 'application/json'
+      actual_body = JSON.load req.body
+      actual_body.must_equal expected_body
+    end
+  end
+
+  it 'must submit subtitle order with options' do
+    VCR.insert_cassette 'submit_su_order'
+
+    request = Rev::OrderRequest.new(:caption_options => subtitle_options)
+
+    new_order_num = client.submit_order(request)
+
+    new_order_num.must_equal 'CP12345'
+    expected_body = {
+      'payment' => {
+        'type' => 'AccountBalance'
+      },
+      'priority' => Rev::OrderRequest::PRIORITY[:normal],
+      'caption_options' => {
+        'inputs'=> [
+          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
+        ],
+        'subtitle_languages' => ['es','it'],
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }
     }
