@@ -35,7 +35,7 @@ describe 'POST /orders' do
     Rev::CaptionOptions.new(caption_inputs, :output_file_formats => ['SubRip'])
   }
   let(:subtitle_options) {
-    Rev::CaptionOptions.new(caption_inputs, :subtitle_languages => 'es,it',
+    Rev::CaptionOptions.new(caption_inputs, :subtitle_languages => ['es','it'],
     :output_file_formats => ['SubRip'])
   }
 
@@ -188,7 +188,7 @@ describe 'POST /orders' do
         'inputs'=> [
           { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
         ],
-        'subtitle_languages' => 'es,it',
+        'subtitle_languages' => ['es','it'],
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }
     }

@@ -152,7 +152,7 @@ module Rev
     # Array of file formats the captions should be delivered as.  (Optional, default is SubRip)
     attr_reader :output_file_formats
 
-    # Optional, a list of comma-separated language codes to request foreign language subtitles
+    # Optional, Array of language codes to request foreign language subtitles
     attr_reader :subtitle_languages
 
     # All supported output file formats
