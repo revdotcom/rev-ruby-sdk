@@ -24,6 +24,27 @@ describe 'POST /inputs' do
     end
   end
 
+  it 'must quote the filename' do
+    VCR.insert_cassette 'link_input_with_spaces_in_filename'
+
+    link = 'https://s3-us-west-2.amazonaws.com/public-rev/translation/Rev Certified Template (2014-06-11).docx'
+    filename = 'Rev Certified Template (2014-06-11).docx'
+    content_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    new_input_location = client.create_input_from_link(link, filename, content_type)
+
+    new_input_location.must_match 'urn:rev:inputmedia:'
+    expected_body = {
+      'url' => link,
+      'filename' => filename,
+      'content_type' => content_type
+    }
+    assert_requested(:post, /.*\/inputs/, :times => 1) do |req|
+      req.headers['Content-Type'] == 'application/json'
+      actual_body = JSON.load req.body
+      actual_body.must_equal expected_body
+    end
+  end
+
   it 'must link external file without content-type and filename' do
     VCR.insert_cassette 'link_input'
 

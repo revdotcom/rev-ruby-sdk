@@ -220,7 +220,7 @@ module Rev
     def upload_input(path, content_type)
       filename = Pathname.new(path).basename
       headers = {
-        'Content-Disposition' => "attachment; filename=#{filename}",
+        'Content-Disposition' => "attachment; filename=\"#{filename}\"",
         'Content-Type' => content_type
       }
 

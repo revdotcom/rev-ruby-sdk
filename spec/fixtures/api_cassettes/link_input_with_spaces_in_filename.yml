@@ -1,0 +1,45 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://www.revtrunk.com/api/v1/inputs
+    body:
+      encoding: UTF-8
+      string: '{"url":"https://s3-us-west-2.amazonaws.com/public-rev/translation/Rev
+        Certified Template (2014-06-11).docx","filename":"Rev Certified Template (2014-06-11).docx","content_type":"application/vnd.openxmlformats-officedocument.wordprocessingml.document"}'
+    headers:
+      Authorization:
+      - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
+      User-Agent:
+      - RevOfficialRubySDK/2.1.0
+      Content-Type:
+      - application/json
+  response:
+    status:
+      code: 201
+      message: Created
+    headers:
+      Cache-Control:
+      - no-cache
+      Pragma:
+      - no-cache
+      Expires:
+      - '-1'
+      Location:
+      - urn:rev:inputmedia:YHVwbG9hZHMvMjAxNS0xMC0yMC80ZTlkNmFhZS02YmNhLTQzY2MtOTViNy1lM2E0MmNhNmQwMmQvUmV2IENlcnRpZmllZCBUZW1wbGF0ZSAoMjAxNC0wNi0xMSkuZG9jeA==
+      Server:
+      - Microsoft-IIS/8.5
+      X-Miniprofiler-Ids:
+      - '["a40c8bab-d6ad-4e2f-b277-d5691885e974"]'
+      X-Powered-By:
+      - ASP.NET
+      Date:
+      - Tue, 20 Oct 2015 21:48:24 GMT
+      Content-Length:
+      - '0'
+    body:
+      encoding: UTF-8
+      string: ''
+    http_version:
+  recorded_at: Tue, 20 Oct 2015 21:48:23 GMT
+recorded_with: VCR 2.6.0
