@@ -52,7 +52,7 @@ http_interactions:
       User-Agent:
       - RevOfficialRubySDK/1.0.0
       Content-Disposition:
-      - attachment; filename=sourcedocument.png
+      - attachment; filename="sourcedocument.png"
       Content-Type:
       - image/png
       Accept:
@@ -71,7 +71,7 @@ http_interactions:
       Expires:
       - '-1'
       Location:
-      - urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0yNi9jYzljNGE0MC03NTY3LTQ2YjYtYmVmMi0xMjU5ODgwODNhMWQvc291cmNlZG9jdW1lbnQucG5n
+      - urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0yNi9jYzljNGE0MC03NTY3LTQ2YjYtYmVmMi0xMjU5ODgwODNhMWQvc291cmNlZG9jdW1lbnQucG5n
       Server:
       - Microsoft-IIS/7.5
       X-Miniprofiler-Ids:

@@ -5,7 +5,7 @@ http_interactions:
     uri: https://www.revtrunk.com/api/v1/orders
     body:
       encoding: UTF-8
-      string: ! '{"payment":{"type":"AccountBalance"},"translation_options":{"source_language_code":"es","destination_language_code":"en","inputs":[{"word_length":1000,"uri":"urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n"}]}}'
+      string: ! '{"payment":{"type":"AccountBalance"},"translation_options":{"source_language_code":"es","destination_language_code":"en","inputs":[{"word_length":1000,"uri":"urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n"}]}}'
     headers:
       Content-Type:
       - application/json

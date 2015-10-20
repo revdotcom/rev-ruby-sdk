@@ -26,7 +26,7 @@ http_interactions:
       Expires:
       - '-1'
       Location:
-      - https://www.revtrunk.com/api/v1/orders/CP12345
+      - https://www.revtrunk.com/api/v1/orders/CP56789
       Server:
       - Microsoft-IIS/7.5
       X-Miniprofiler-Ids:

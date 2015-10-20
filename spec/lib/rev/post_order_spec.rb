@@ -21,7 +21,7 @@ describe 'POST /orders' do
   }
   let(:translation_inputs) {
     inputs = []
-    inputs << Rev::Input.new(:word_length => 1000, :uri => 'urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n')
+    inputs << Rev::Input.new(:word_length => 1000, :uri => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n')
   }
   let(:caption_inputs) {
     inputs = []
@@ -63,11 +63,7 @@ describe 'POST /orders' do
         'timestamps' => true
       }
     }
-    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
-      actual_body = JSON.load req.body
-      actual_body.must_equal expected_body
-    end
+    assert_order_placement_success(expected_body)
   end
 
   it 'must default to account balance if payment property not set' do
@@ -94,19 +90,14 @@ describe 'POST /orders' do
             'timestamps' => true
         }
     }
-    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
-      actual_body = JSON.load req.body
-      actual_body.must_equal expected_body
-    end
+    assert_order_placement_success(expected_body)
   end
 
   it 'must raise BadRequest error in case of request validation failure' do
     VCR.insert_cassette 'submit_tc_order_with_invalid_request'
 
     # example - missing transcription options
-    request = Rev::OrderRequest.new(
-    )
+    request = Rev::OrderRequest.new
 
     action = lambda { client.submit_order(request) }
     exception = action.must_raise Rev::BadRequestError
@@ -131,17 +122,13 @@ describe 'POST /orders' do
       'priority' => Rev::OrderRequest::PRIORITY[:normal],
       'translation_options' => {
         'inputs'=> [
-          { 'word_length' => 1000, 'uri' => 'urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
+          { 'word_length' => 1000, 'uri' => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
         ],
         'source_language_code' => 'es',
         'destination_language_code' => 'en'
       }
     }
-    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
-      actual_body = JSON.load req.body
-      actual_body.must_equal expected_body
-    end
+    assert_order_placement_success(expected_body)
   end
 
   it 'must submit caption order with options' do
@@ -164,11 +151,7 @@ describe 'POST /orders' do
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }
     }
-    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
-      actual_body = JSON.load req.body
-      actual_body.must_equal expected_body
-    end
+    assert_order_placement_success(expected_body)
   end
 
   it 'must submit subtitle order with options' do
@@ -178,7 +161,7 @@ describe 'POST /orders' do
 
     new_order_num = client.submit_order(request)
 
-    new_order_num.must_equal 'CP12345'
+    new_order_num.must_equal 'CP56789'
     expected_body = {
       'payment' => {
         'type' => 'AccountBalance'
@@ -192,15 +175,21 @@ describe 'POST /orders' do
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }
     }
-    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
-      actual_body = JSON.load req.body
-      actual_body.must_equal expected_body
-    end
+    assert_order_placement_success(expected_body)
   end
 
   after do
     VCR.eject_cassette
+  end
+
+  private
+
+  def assert_order_placement_success(expected_body)
+    assert_requested(:post, /.*\/orders/, :times => 1) do |req|
+      req.headers['Content-Type'].must_equal 'application/json'
+      actual_body = JSON.load req.body
+      actual_body.must_equal expected_body
+    end
   end
 
 end
