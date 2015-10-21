@@ -11,14 +11,14 @@ describe 'POST /inputs' do
     content_type = 'image/png'
     new_input_location = client.create_input_from_link(link, filename, content_type)
 
-    new_input_location.must_match 'urn:foxtranslate:inputmedia:'
+    new_input_location.must_match 'urn:rev:inputmedia:'
     expected_body = {
       'url' => link,
       'filename' => filename,
       'content_type' => content_type
     }
     assert_requested(:post, /.*\/inputs/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
+      req.headers['Content-Type'].must_equal 'application/json'
       actual_body = JSON.load req.body
       actual_body.must_equal expected_body
     end
@@ -39,7 +39,6 @@ describe 'POST /inputs' do
       'content_type' => content_type
     }
     assert_requested(:post, /.*\/inputs/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
       actual_body = JSON.load req.body
       actual_body.must_equal expected_body
     end
@@ -51,10 +50,10 @@ describe 'POST /inputs' do
     link = 'https://www.rev.com/content/img/rev/rev_logo_colored_top.png'
     new_input_location = client.create_input_from_link(link)
 
-    new_input_location.must_match 'urn:foxtranslate:inputmedia:'
+    new_input_location.must_match 'urn:rev:inputmedia:'
     expected_body = { 'url' => link }
     assert_requested(:post, /.*\/inputs/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
+      req.headers['Content-Type'].must_equal 'application/json'
       actual_body = JSON.load req.body
       actual_body.must_equal expected_body
     end
@@ -68,11 +67,11 @@ describe 'POST /inputs' do
 
     new_input_location = client.upload_input(filename, content_type)
 
-    new_input_location.must_match 'urn:foxtranslate:inputmedia:'
+    new_input_location.must_match 'urn:rev:inputmedia:'
     expected_body = File.read(filename)
     assert_requested(:post, /.*\/inputs/, :times => 1) do |req|
-      req.headers['Content-Type'] == content_type
-      req.headers['Content-Disposition'] == 'attachment; filename="sourcedocument.png'
+      req.headers['Content-Type'].must_equal content_type
+      req.headers['Content-Disposition'].must_equal 'attachment; filename="sourcedocument.png"'
       req.body.must_equal expected_body
     end
   end

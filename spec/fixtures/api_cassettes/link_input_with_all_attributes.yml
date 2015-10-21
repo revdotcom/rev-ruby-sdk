@@ -25,7 +25,7 @@ http_interactions:
       Expires:
       - '-1'
       Location:
-      - urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy83MTZjOTAzNC1iMDkxLTRlYjgtOTAzMi1kNjU0NzMzNDJlZTcvc291cmNlZG9jdW1lbnQucG5n
+      - urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy83MTZjOTAzNC1iMDkxLTRlYjgtOTAzMi1kNjU0NzMzNDJlZTcvc291cmNlZG9jdW1lbnQucG5n
       Server:
       - Microsoft-IIS/7.5
       X-Miniprofiler-Ids:

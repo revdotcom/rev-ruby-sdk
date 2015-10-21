@@ -21,7 +21,7 @@ describe 'POST /orders' do
   }
   let(:translation_inputs) {
     inputs = []
-    inputs << Rev::Input.new(:word_length => 1000, :uri => 'urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n')
+    inputs << Rev::Input.new(:word_length => 1000, :uri => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n')
   }
   let(:caption_inputs) {
     inputs = []
@@ -127,26 +127,26 @@ describe 'POST /orders' do
       'priority' => Rev::OrderRequest::PRIORITY[:normal],
       'translation_options' => {
         'inputs'=> [
-          { 'word_length' => 1000, 'uri' => 'urn:foxtranslate:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
+          { 'word_length' => 1000, 'uri' => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
         ],
         'source_language_code' => 'es',
         'destination_language_code' => 'en'
       }
     }
     assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
+      req.headers['Content-Type'].must_equal 'application/json'
       actual_body = JSON.load req.body
       actual_body.must_equal expected_body
     end
   end
-  
+
   it 'must submit caption order with options' do
     VCR.insert_cassette 'submit_cp_order'
-    
+
     request = Rev::OrderRequest.new(:caption_options => caption_options)
-    
+
     new_order_num = client.submit_order(request)
-    
+
     new_order_num.must_equal 'CP12345'
     expected_body = {
       'payment' => {
@@ -161,7 +161,7 @@ describe 'POST /orders' do
       }
     }
     assert_requested(:post, /.*\/orders/, :times => 1) do |req|
-      req.headers['Content-Type'] == 'application/json'
+      req.headers['Content-Type'].must_equal 'application/json'
       actual_body = JSON.load req.body
       actual_body.must_equal expected_body
     end
