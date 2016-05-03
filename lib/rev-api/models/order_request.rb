@@ -3,7 +3,7 @@ require 'rev-api/api_serializable'
 module Rev
   # OrderRequest is used for constructing order 'spec' in consumer code and passing it into.
   # It consists of three main elements: :payment, :transcription_options and :notification.
-  # You can also supply priority, reference number, and customer comment
+  # You can also supply reference number, customer comment, and whether standard turnaround time is not required
   #
   # @note https://www.rev.com/api/ordersposttranscription, https://www.rev.com/api/ordersposttranslation, https://www.rev.com/api/orderspostcaption
   class OrderRequest < ApiSerializable
@@ -28,27 +28,21 @@ module Rev
     # a comment with any special messages about the order (optional)
     attr_reader :comment
 
-    # a requested priority for the order, defaults to normal (optional)
-    attr_reader :priority
-
-    # use to correctly set priority
-    PRIORITY = {
-      :normal => 'Normal',
-      :time_insensitivie => 'TimeInsensitivie'
-    }
+    # a boolean flag specifying whether normal turnaround time is not required, defaults to false (optional)
+    attr_reader :non_standard_tat_guarantee
 
     # @param payment [Payment] payment info
     # @param fields [Hash] of fields to initialize instance. See instance attributes for available fields.
     # @deprecated payment always defaults to :account_balance
     def self.new_with_payment(payment, fields = {})
-      fields = { :priority => PRIORITY[:normal] }.merge(fields)
+      fields = { :non_standard_tat_guarantee => false }.merge(fields)
       super fields
       @payment = payment
     end
 
     # @param fields [Hash] of fields to initialize instance. See instance attributes for available fields.
     def initialize(fields = {})
-      fields = { :priority => PRIORITY[:normal] }.merge(fields)
+      fields = { :non_standard_tat_guarantee => false }.merge(fields)
       @payment = Rev::Payment.with_account_balance
       super fields
     end

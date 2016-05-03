@@ -2,23 +2,15 @@ require_relative '../../../spec_helper'
 
 describe 'OrderRequest' do
 
-  it 'has normal priority' do
-    Rev::OrderRequest::PRIORITY[:normal].must_equal 'Normal'
-  end
-
-  it 'has time insensitivie priority' do
-    Rev::OrderRequest::PRIORITY[:time_insensitivie].must_equal 'TimeInsensitivie'
-  end
-
-  it 'defaults to normal priority' do
+  it 'defaults to standard TAT guarantee' do
     order = Rev::OrderRequest.new({})
-    order.priority.must_equal Rev::OrderRequest::PRIORITY[:normal]
+    order.non_standard_tat_guarantee.must_equal false
   end
 
-  it 'accepts priority during init' do
-    priority = Rev::OrderRequest::PRIORITY[:time_insensitivie]
-    order = Rev::OrderRequest.new({ 'priority' => priority })
-    order.priority.must_equal priority
+  it 'accepts non standard TAT guarantee flag during init' do
+    non_standard_tat_guarantee = true
+    order = Rev::OrderRequest.new({ 'non_standard_tat_guarantee' => non_standard_tat_guarantee })
+    order.non_standard_tat_guarantee.must_equal non_standard_tat_guarantee
   end
 
   it 'has caption options' do

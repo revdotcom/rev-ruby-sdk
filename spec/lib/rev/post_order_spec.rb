@@ -53,7 +53,7 @@ describe 'POST /orders' do
       'payment' => {
         'type' => 'AccountBalance'
       },
-      'priority' => Rev::OrderRequest::PRIORITY[:normal],
+      'non_standard_tat_guarantee' => false,
       'transcription_options' => {
         'inputs' => [
           { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' },
@@ -80,7 +80,7 @@ describe 'POST /orders' do
         'payment' => {
             'type' => 'AccountBalance'
         },
-        'priority' => Rev::OrderRequest::PRIORITY[:normal],
+        'non_standard_tat_guarantee' => false,
         'transcription_options' => {
             'inputs' => [
                 { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' },
@@ -119,7 +119,7 @@ describe 'POST /orders' do
       'payment' => {
         'type' => 'AccountBalance'
       },
-      'priority' => Rev::OrderRequest::PRIORITY[:normal],
+      'non_standard_tat_guarantee' => false,
       'translation_options' => {
         'inputs'=> [
           { 'word_length' => 1000, 'uri' => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
@@ -143,7 +143,7 @@ describe 'POST /orders' do
       'payment' => {
         'type' => 'AccountBalance'
       },
-      'priority' => Rev::OrderRequest::PRIORITY[:normal],
+      'non_standard_tat_guarantee' => false,
       'caption_options' => {
         'inputs'=> [
           { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
@@ -166,7 +166,7 @@ describe 'POST /orders' do
       'payment' => {
         'type' => 'AccountBalance'
       },
-      'priority' => Rev::OrderRequest::PRIORITY[:normal],
+      'non_standard_tat_guarantee' => false,
       'caption_options' => {
         'inputs'=> [
           { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc' }
