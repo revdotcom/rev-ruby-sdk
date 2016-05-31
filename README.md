@@ -72,9 +72,9 @@ rev_client = Rev.new('your_client_key', 'your_user_key')
 #### Listing orders
 
 ```ruby
-orders_page = rev_client.get_orders_page(1); # get a single page of orders
-all_orders = rev_client.get_all_orders; # get first page of orders history
-orders_by_client_ref = rev_client.get_orders_by_client_ref('some_ref'); # get orders with reference id of 'some_ref'
+orders_page = rev_client.get_orders_page(1) # get a single page of orders
+all_orders = rev_client.get_all_orders # get first page of orders history
+orders_by_client_ref = rev_client.get_orders_by_client_ref('some_ref') # get orders with reference id of 'some_ref'
 ```
 
 #### Get a single order by order number
