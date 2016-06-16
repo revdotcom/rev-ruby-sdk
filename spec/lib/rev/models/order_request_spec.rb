@@ -46,13 +46,6 @@ describe 'OrderRequest' do
     end
   end
 
-  describe 'TranslationOptions' do
-    it 'is InputOptions' do
-      options = Rev::TranslationOptions.new([{}], {})
-      options.must_be_kind_of Rev::InputOptions
-    end
-  end
-
   describe 'CaptionOptions' do
     it 'is InputOptions' do
       options = Rev::CaptionOptions.new([{}], {})

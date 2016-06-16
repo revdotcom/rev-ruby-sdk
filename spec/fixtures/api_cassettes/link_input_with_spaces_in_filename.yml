@@ -5,8 +5,8 @@ http_interactions:
     uri: https://www.revtrunk.com/api/v1/inputs
     body:
       encoding: UTF-8
-      string: '{"url":"https://s3-us-west-2.amazonaws.com/public-rev/translation/Rev
-        Certified Template (2014-06-11).docx","filename":"Rev Certified Template (2014-06-11).docx","content_type":"application/vnd.openxmlformats-officedocument.wordprocessingml.document"}'
+      string: '{"url":"https://s3-us-west-2.amazonaws.com/public-rev/transcript/Rev
+        Transcript File.docx","filename":"Rev Transcript File.docx","content_type":"application/vnd.openxmlformats-officedocument.wordprocessingml.document"}'
     headers:
       Authorization:
       - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=

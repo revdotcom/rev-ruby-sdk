@@ -19,18 +19,12 @@ describe 'POST /orders' do
       inputs << Rev::Input.new(:external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')
       inputs << Rev::Input.new(:audio_length_seconds => 900, :external_link => 'https://vimeo.com/7976699')
   }
-  let(:translation_inputs) {
-    inputs = []
-    inputs << Rev::Input.new(:word_length => 1000, :uri => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n')
-  }
   let(:caption_inputs) {
     inputs = []
     inputs << Rev::Input.new(:video_length_seconds => 900, :external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc')
   }
   let(:transcription_options) { Rev::TranscriptionOptions.new(transcription_inputs,
     :verbatim => true, :timestamps => true) }
-  let(:translation_options) { Rev::TranslationOptions.new(translation_inputs,
-    :source_language_code => 'es', :destination_language_code => 'en') }
   let(:caption_options) {
     Rev::CaptionOptions.new(caption_inputs, :output_file_formats => ['SubRip'])
   }
@@ -101,34 +95,8 @@ describe 'POST /orders' do
 
     action = lambda { client.submit_order(request) }
     exception = action.must_raise Rev::BadRequestError
-    exception.message.must_match '10004: You must specify either translation or transcription options in an order'
-    exception.code.must_equal Rev::OrderRequestErrorCodes::TC_OR_TR_OPTIONS_NOT_SPECIFIED
-  end
-
-  it 'must submit translation order with options' do
-    VCR.insert_cassette 'submit_tr_order'
-
-    request = Rev::OrderRequest.new(
-      :translation_options => translation_options
-    )
-
-    new_order_num = client.submit_order(request)
-
-    new_order_num.must_equal 'TR0235803277'
-    expected_body = {
-      'payment' => {
-        'type' => 'AccountBalance'
-      },
-      'non_standard_tat_guarantee' => false,
-      'translation_options' => {
-        'inputs'=> [
-          { 'word_length' => 1000, 'uri' => 'urn:rev:inputmedia:SnVwbG9hZHMvMjAxMy0wOS0xNy9lMzk4MWIzNS0wNzM1LTRlMDAtODY1NC1jNWY4ZjE4MzdlMTIvc291cmNlZG9jdW1lbnQucG5n' },
-        ],
-        'source_language_code' => 'es',
-        'destination_language_code' => 'en'
-      }
-    }
-    assert_order_placement_success(expected_body)
+    exception.message.must_match '10004: You must specify either transcription or caption options in an order'
+    exception.code.must_equal Rev::OrderRequestErrorCodes::OPTIONS_NOT_SPECIFIED
   end
 
   it 'must submit caption order with options' do

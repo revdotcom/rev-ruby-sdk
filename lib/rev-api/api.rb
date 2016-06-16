@@ -98,7 +98,7 @@ module Rev
 
     # Get metadata about an order attachment.
     # Use this method to retrieve information about an order attachment (either transcript,
-    # translation, or source file).
+    # caption or source file).
     #
     # @note https://www.rev.com/api/attachmentsget
     # @param id [String] attachment id, as returned in info about an order
@@ -111,8 +111,8 @@ module Rev
 
     # Get the raw data for the attachment with given id.
     # Download the contents of an attachment. Use this method to download either a finished transcript,
-    # finished translation or a source file for an order.
-    # For transcript and translation attachments, you may request to get the contents in a specific
+    # or a source file for an order.
+    # For transcript attachments, you may request to get the contents in a specific
     # representation, specified via a mime-type.
     #
     # See {Rev::Order::Attachment::REPRESENTATIONS} hash, which contains symbols for currently supported mime types.
@@ -146,8 +146,8 @@ module Rev
 
     # Get the raw data for the attachment with given id.
     # Download the contents of an attachment and save it into a file. Use this method to download either a finished transcript,
-    # finished translation or a source file for an order.
-    # For transcript and translation attachments, you may request to get the contents in a specific
+    # or a source file for an order.
+    # For transcript attachments, you may request to get the contents in a specific
     # representation, specified via a mime-type.
     #
     # See {Rev::Order::Attachment::REPRESENTATIONS} hash, which contains symbols for currently supported mime types.
@@ -180,7 +180,7 @@ module Rev
     end
 
     # Get the content of the attachment with given id as a string. Use this method to grab the contents of a finished transcript
-    # or translation as a string. This method should generally not be used for source attachments, as those are typically
+    # as a string. This method should generally not be used for source attachments, as those are typically
     # binary files like MP3s, which cannot be converted to a string.
     #
     # May raise Rev::Api::NotAcceptableError if the attachment cannot be converted into a text representation.

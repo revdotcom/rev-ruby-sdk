@@ -5,16 +5,13 @@ module Rev
   # It consists of three main elements: :payment, :transcription_options and :notification.
   # You can also supply reference number, customer comment, and whether standard turnaround time is not required
   #
-  # @note https://www.rev.com/api/ordersposttranscription, https://www.rev.com/api/ordersposttranslation, https://www.rev.com/api/orderspostcaption
+  # @note https://www.rev.com/api/ordersposttranscription, https://www.rev.com/api/orderspostcaption
   class OrderRequest < ApiSerializable
     # see {Rev::Payment}
     attr_reader :payment
 
     # see {Rev::TranscriptionOptions}
     attr_reader :transcription_options
-
-    # see {Rev::TranslationOptions}
-    attr_reader :translation_options
 
     # see {Rev::CaptionOptions}
     attr_reader :caption_options
@@ -117,28 +114,6 @@ module Rev
     end
   end
 
-  # Translation options. This section contains the input media that must be transferred to our
-  # servers using a POST to /inputs, and are referenced using the URIs returned by that call.
-  # For each media, word count must be specified. The language code for the source and desitination
-  # languages must also be specified.
-  # @see https://www.rev.com/api/ordersposttranslation
-  class TranslationOptions < InputOptions
-    # Mandatory, source language code
-    attr_reader :source_language_code
-
-    # Mandatory, destination language code
-    attr_reader :destination_language_code
-
-    # @param inputs [Array] list of inputs
-    # @param info [Hash] of fields to initialize instance. May contain:
-    #        - :source_language_code
-    #        - :destination_language_code
-    # @note For language codes refer to http://www.loc.gov/standards/iso639-2/php/code_list.php
-    def initialize(inputs, info = {})
-      super inputs, info
-    end
-  end
-
   # Caption options. This section contains the input media that must be transferred to our servers
   # using a POST to /inputs, and are referenced using the URIs returned by that call. We also support external links.
   # @see https://www.rev.com/api/orderspostcaption
@@ -165,7 +140,7 @@ module Rev
     # @param inputs [Array] list of inputs
     # @param info [Hash] of fields to initialize instance. May contain:
     #        - :subtitle_languages
-    # @see TranslationOptions for a list of language codes.
+    # @see For language codes refer to http://www.loc.gov/standards/iso639-2/php/code_list.php
     def initialize(inputs, info = {})
       super(inputs, info)
       raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
@@ -180,9 +155,6 @@ module Rev
 
   # Input for order (aka source file)
   class Input < ApiSerializable
-    #  Mandatory when used with {Rev::OrderRequest::TranslationInfo}, length of document, in words
-    attr_reader :word_length
-
     # Length of audio in seconds (mandatory in case of inability to determine it automatically).
     # Used within {Rev::OrderRequest::TranscriptionInfo}
     attr_reader :audio_length_seconds

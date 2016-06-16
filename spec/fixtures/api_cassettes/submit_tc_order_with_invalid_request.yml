@@ -38,8 +38,8 @@ http_interactions:
       - '100'
     body:
       encoding: US-ASCII
-      string: ! '{"code":10004,"message":"You must specify either translation or transcription
+      string: ! '{"code":10004,"message":"You must specify either transcription or caption
         options in an order."}'
-    http_version: 
+    http_version:
   recorded_at: Mon, 16 Sep 2013 23:42:39 GMT
 recorded_with: VCR 2.5.0

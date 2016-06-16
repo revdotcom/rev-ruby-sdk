@@ -1,21 +1,20 @@
 require 'rev-api/api_serializable'
 
 module Rev
-  # Represents Translation, Caption, or Transcription order.
-  # Should have TranslationInfo, CaptionInfo, or TranscriptionInfo, list
+  # Represents a Caption or Transcription order.
+  # Should have CaptionInfo or TranscriptionInfo, list
   # of comments and attachments. Attributes names reflect
   # API exposed names, but occasional hyphens are replaced
   # with underscores
   class Order < ApiSerializable
     attr_reader :order_number, :price, :status, :attachments, :comments,
-      :translation, :transcription, :caption, :client_ref
+      :transcription, :caption, :client_ref
 
     # @param fields [Hash] hash of order fields parsed from JSON API response
     def initialize(fields)
       super fields
       @attachments = fields['attachments'].map { |attachment_fields| Attachment.new(attachment_fields) }
       @comments = fields['comments'].map { |comment_fields| Comment.new(comment_fields) }
-      @translation = TranslationInfo.new(fields['translation']) if fields['translation']
       @transcription = TranscriptionInfo.new(fields['transcription']) if fields['transcription']
       @caption = CaptionInfo.new(fields['caption']) if fields['caption']
     end
@@ -23,11 +22,6 @@ module Rev
     # @return [Array of Attachment] with the kind of "transcript"
     def transcripts
       @attachments.select { |a| a.kind == Attachment::KINDS[:transcript]}
-    end
-
-    # @return [Array of Attachment] with the kind of "translation"
-    def translations
-      @attachments.select { |a| a.kind == Attachment::KINDS[:translation]}
     end
 
     # @return [Array of Attachment] with the kind of "caption"
@@ -55,37 +49,29 @@ module Rev
     end
   end
 
-  # Additional information specific to translation orders,
-  # such as word count, languages
-  class TranslationInfo < ApiSerializable
-    attr_reader :total_word_count, :source_language_code,
-      :destination_language_code
-  end
-
   # Additional information specific to transcription orders,
   # such as total length in minutes, verbatim and timestamps flags
   class TranscriptionInfo < ApiSerializable
     attr_reader :total_length_seconds, :verbatim, :timestamps
-    
+
     # @deprecated use :total_length_seconds instead
     attr_reader :total_length
   end
-  
+
   # Additional information specific to caption orders
   class CaptionInfo < ApiSerializable
     attr_reader :total_length_seconds
-    
+
     # @deprecated use :total_length_seconds instead
     attr_reader :total_length
   end
 
   # Represents order attachment - logical document associated with order
   class Attachment < ApiSerializable
-    attr_reader :kind, :name, :id, :audio_length_seconds, :word_count, :links, :video_length_seconds
-    
+    attr_reader :kind, :name, :id, :audio_length_seconds, :links, :video_length_seconds
+
     KINDS = {
       :transcript => 'transcript',
-      :translation => 'translation',
       :caption => 'caption',
       :media => 'media'
     }
@@ -93,18 +79,24 @@ module Rev
     # List of supported mime-types used to request attachment's content
     # within 'Accept' header
     REPRESENTATIONS = {
-      # Supported by :transcript and :translation
+      # Supported by :transcript
       :docx => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
       :doc => 'application/msword',
       :pdf => 'application/pdf',
       :txt => 'text/plain',
       :youtube => 'text/plain; format=youtube-transcript',
-      
+
       # Supported by :caption
       :srt => 'application/x-subrip',
       :scc => 'text/x-scc',
+      :mcc => 'text/x-mcc',
       :ttml => 'application/ttml+xml',
-      :qt => 'application/x-quicktime-timedtext'
+      :qt => 'application/x-quicktime-timedtext',
+      :vtt => 'text/vtt',
+      :dfxp => 'application/ttaf+xml',
+      :cap => 'application/x-cheetah-cap',
+      :stl => 'text/x-stl',
+      :avidds => 'text/vnd.avid-ds'
     }
 
     # @param fields [Hash] fields of attachment fields parsed from JSON API response

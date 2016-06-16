@@ -27,7 +27,7 @@ describe 'GET /orders' do
 
       assert_requested :get, /.*\/api\/v1\/orders\?page=2/, :times => 1
 
-      page.orders.size.must_equal 8
+      page.orders.size.must_equal 5
       page.page.must_equal 2
       page.orders.first.order_number.must_equal 'TC0229215557'
     end

@@ -11,8 +11,8 @@ rev-ruby-sdk
 
 ### Background
 
-Rev.com provides transcription and translation services powered by humans. The Rev.com API allows you to tap these services
-with no manual steps. It's a RESTful API, documented at <https://www.rev.com/api/docs>.
+Rev.com provides transcription, caption and translation services powered by humans. The Rev.com API allows you to tap transcription
+and caption services with no manual steps. It's a RESTful API, documented at <https://www.rev.com/api/docs>.
 
 The Ruby SDK for the Rev API provides a convenient Ruby wrapper for the Rev.com API. All operations of the API, as described
 at <https://www.rev.com/api/operations>, are supported.
@@ -72,9 +72,9 @@ rev_client = Rev.new('your_client_key', 'your_user_key')
 #### Listing orders
 
 ```ruby
-orders_page = rev_client.get_orders_page(1); # get a single page of orders
-all_orders = rev_client.get_all_orders; # get first page of orders history
-orders_by_client_ref = rev_client.get_orders_by_client_ref('some_ref'); # get orders with reference id of 'some_ref'
+orders_page = rev_client.get_orders_page(1) # get a single page of orders
+all_orders = rev_client.get_all_orders # get first page of orders history
+orders_by_client_ref = rev_client.get_orders_by_client_ref('some_ref') # get orders with reference id of 'some_ref'
 ```
 
 #### Get a single order by order number
