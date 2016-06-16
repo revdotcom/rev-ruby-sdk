@@ -46,22 +46,6 @@ describe 'GET /orders/{order_num}' do
     end
   end
 
-  describe 'Translation' do
-    before do
-      VCR.insert_cassette 'get_tr_order'
-    end
-
-    describe 'loaded order' do
-      let(:order) { client.get_order('TR0116711100') }
-
-      it 'must have translation info' do
-        order.translation.total_word_count.must_equal 2
-        order.translation.source_language_code.must_equal 'cs'
-        order.translation.destination_language_code.must_equal 'en'
-      end
-    end
-  end
-
   after do
     VCR.eject_cassette
   end

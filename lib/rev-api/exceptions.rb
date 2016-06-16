@@ -41,11 +41,11 @@ module Rev
     # 10002 Invalid Input - if one of the input media URIs is invalid, eg does not identify a valid media uploaded via a POST to /inputs
     INVALID_INPUTS = 10002
 
-    # 10003 Transcription and Translation Specified - only one of the translation option and transcription option sections can be included
-    TC_AND_TR_OPTIONS_SPECIFIED = 10003
+    # 10003 Multiple options specified - only options for one service can be included per each order placement request
+    MULTIPLE_OPTIONS_SPECIFIED = 10003
 
     # 10001 Missing Inputs - if the order request did not contain any input media
-    TC_OR_TR_OPTIONS_NOT_SPECIFIED = 10004
+    OPTIONS_NOT_SPECIFIED = 10004
 
     # 10005 External Link and URI specified - only External Link or URI should be set for input media
     EXTERNAL_LINK_AND_URI_SPECIFIED = 10005
@@ -59,10 +59,7 @@ module Rev
     # @deprecated Use {#OrderRequestErrorCodes.INVALID_MEDIA_LENGTH} instead
     INVALID_AUDIO_LENGTH = INVALID_MEDIA_LENGTH
 
-    # 20002 Invalid Word Count - word counts for translation are missing or inaccurate
-    INVALID_WORD_COUNT = 20002
-
-    # 20003 Invalid Language Code - the language codes provided for translation are invalid
+    # 20003 Invalid Language Code - the language codes provided for subtitles are invalid
     INVALID_LANGUAGE_CODE = 20003
 
     # 20010 Reference Number Too Long Code - the reference number provided longer than 40 characters

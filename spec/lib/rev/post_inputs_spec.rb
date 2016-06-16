@@ -27,8 +27,8 @@ describe 'POST /inputs' do
   it 'must quote the filename' do
     VCR.insert_cassette 'link_input_with_spaces_in_filename'
 
-    link = 'https://s3-us-west-2.amazonaws.com/public-rev/translation/Rev Certified Template (2014-06-11).docx'
-    filename = 'Rev Certified Template (2014-06-11).docx'
+    link = 'https://s3-us-west-2.amazonaws.com/public-rev/transcript/Rev Transcript File.docx'
+    filename = 'Rev Transcript File.docx'
     content_type = 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
     new_input_location = client.create_input_from_link(link, filename, content_type)
 

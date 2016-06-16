@@ -11,8 +11,8 @@ rev-ruby-sdk
 
 ### Background
 
-Rev.com provides transcription and translation services powered by humans. The Rev.com API allows you to tap these services
-with no manual steps. It's a RESTful API, documented at <https://www.rev.com/api/docs>.
+Rev.com provides transcription, caption and translation services powered by humans. The Rev.com API allows you to tap transcription
+and caption services with no manual steps. It's a RESTful API, documented at <https://www.rev.com/api/docs>.
 
 The Ruby SDK for the Rev API provides a convenient Ruby wrapper for the Rev.com API. All operations of the API, as described
 at <https://www.rev.com/api/operations>, are supported.
