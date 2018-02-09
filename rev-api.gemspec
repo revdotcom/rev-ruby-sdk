@@ -28,7 +28,6 @@ Gem::Specification.new do |s|
   s.add_development_dependency('yard', '~> 0')
   s.add_development_dependency('redcarpet', '~> 3.3')
   s.add_development_dependency('rubygems-tasks', '~> 0')
-  s.add_development_dependency('coveralls', '~> 0.8')
 
   s.has_rdoc = 'yard'
 end
