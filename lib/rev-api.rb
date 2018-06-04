@@ -3,7 +3,7 @@ require 'httparty'
 # These three are the only classes that should be accessed directly
 require 'rev-api/api'
 
-module Rev 
+module Rev
   class << self
     # Alias for Rev::Api.new
     #

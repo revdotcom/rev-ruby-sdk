@@ -1,5 +1,10 @@
 require_relative '../../../spec_helper'
 
+GLOSSARY_ENTRIES_LIMIT_TEST = 1000
+GLOSSARY_ENTRY_LENGTH_LIMIT_TEST = 255
+SPEAKER_ENTRIES_LIMIT_TEST = 100
+SPEAKER_ENTRY_LENGTH_LIMIT_TEST = 15
+
 describe 'OrderRequest' do
 
   it 'defaults to standard TAT guarantee' do
@@ -43,6 +48,35 @@ describe 'OrderRequest' do
     it 'is InputOptions' do
       options = Rev::TranscriptionOptions.new([{}], {})
       options.must_be_kind_of Rev::InputOptions
+    end
+
+    describe 'rejects glossary of invalid size' do
+      oversize_glossary = []
+
+      for x in 0..GLOSSARY_ENTRIES_LIMIT_TEST do
+        oversize_glossary << 'testing'
+      end
+      glossary = ['wow', 'amazing']
+      inputs = [Rev::Input.new(audio_length_seconds: 180, external_link: 'https://www.youtube.com/watch?v=tPEE9ZwTmy0', glossary: glossary)]
+      tc_options = Rev::TranscriptionOptions.new(inputs)
+      puts inputs[0].glossary
+      # proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
+    end
+
+    describe 'rejects glossary with invalid terms' do
+
+    end
+
+    describe 'rejects speaker names of invalid size' do
+
+    end
+
+    describe 'rejects speaker names if name is too long' do
+
+    end
+
+    describe 'rejects invalid accents' do
+
     end
   end
 

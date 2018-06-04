@@ -1,6 +1,7 @@
 require 'rev-api'
 require 'optparse'
 require 'pp'
+require 'pry'
 
 # An example app using the official Ruby SDK for the Rev.com API
 #   This ruby script sets up a basic command line interface (CLI)

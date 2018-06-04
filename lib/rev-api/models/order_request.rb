@@ -1,4 +1,5 @@
 require 'rev-api/api_serializable'
+require 'pry'
 
 module Rev
   # OrderRequest is used for constructing order 'spec' in consumer code and passing it into.
@@ -6,6 +7,12 @@ module Rev
   # You can also supply reference number, customer comment, and whether standard turnaround time is not required
   #
   # @note https://www.rev.com/api/ordersposttranscription, https://www.rev.com/api/orderspostcaption
+
+  GLOSSARY_ENTRIES_LIMIT = 1000
+  GLOSSARY_ENTRY_LENGTH_LIMIT = 255
+  SPEAKER_ENTRIES_LIMIT = 100
+  SPEAKER_ENTRY_LENGTH_LIMIT = 15
+
   class OrderRequest < ApiSerializable
     # see {Rev::Payment}
     attr_reader :payment
@@ -111,6 +118,18 @@ module Rev
     #        - :timestamps => true/false
     def initialize(inputs, info = {})
       super inputs, info
+      optionsValidation(inputs)
+    end
+
+    private
+
+    def optionsValidation(inputs)
+      binding.pry
+      inputs.each { |input|
+        input.validate_glossary
+        input.validate_speaker_names
+        input.validate_accents
+      }
     end
   end
 
@@ -144,12 +163,20 @@ module Rev
     def initialize(inputs, info = {})
       super(inputs, info)
       raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
+      optionsValidation(inputs)
     end
 
     private
 
     def validate_output_formats(formats)
       formats.nil? || formats.select{|f| !OUTPUT_FILE_FORMATS.has_value?(f) }.empty?
+    end
+
+    def optionsValidation(inputs)
+      inputs.each { |input|
+        input.validate_glossary
+        input.validate_speaker_names
+      }
     end
   end
 
@@ -169,6 +196,50 @@ module Rev
 
     # External URL, if sources wasn't POSTed as input (YouTube, Vimeo, Dropbox, etc)
     attr_reader :external_link
+
+    #Optional, list of glossary entries.
+    attr_reader :glossary
+
+    #Optional, list of speaker names.
+    attr_reader :speaker_names
+
+    # Optional, list of accents.
+    attr_reader :accents
+
+    SUPPORTED_ACCENTS = {
+      :american_neutral => 'AmericanNeutral',
+      :american_southern => 'AmericanSouthern',
+      :asian => 'Asian',
+      :australian => 'Australian',
+      :british => 'British',
+      :indian => 'Indian',
+      :other => 'Other',
+      :unknown => 'Unknown'
+    }
+
+    def validate_glossary
+      if !glossary.nil?
+        raise(ArgumentError, "Glossary must not exceed #{GLOSSARY_ENTRIES_LIMIT} entries") if glossary.length > GLOSSARY_ENTRIES_LIMIT
+        glossary.each { |term|
+          raise(ArgumentError, "Glossary entries cannot exceed #{GLOSSARY_ENTRY_LENGTH_LIMIT} characters") if term.length > GLOSSARY_ENTRY_LENGTH_LIMIT
+        }
+      end
+    end
+
+    def validate_speaker_names
+      if !speaker_names.nil?
+        raise(ArgumentError, "Speaker list must not exceed #{SPEAKER_ENTRIES_LIMIT} entries") if speaker_names.length > SPEAKER_ENTRIES_LIMIT
+        speaker_names.each { |speaker|
+          raise(ArgumentError, "Speaker name cannot exceed #{SPEAKER_ENTRY_LENGTH_LIMIT} characters") if speaker.length > SPEAKER_ENTRY_LENGTH_LIMIT
+        }
+      end
+    end
+
+    def validate_accents
+      if !accents.nil?
+        raise(ArgumentError, 'Unsupported accent provided') unless accents.select{|f| !Rev::Input::SUPPORTED_ACCENTS.has_value?(f) }.empty?
+      end
+    end
   end
 
   # Notification Info. Optionally you may request that an HTTP post be made to a url of your choice when the order enters

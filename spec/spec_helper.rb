@@ -43,4 +43,10 @@ VCR.configure do |c|
 
     actual_request.headers == expected_request.headers# && actual_user_agent == expected_user_agent
   end
+
+def create_input(options)
+  input_params = {audio_length_seconds: 1993, external_link: 'https://www.youtube.com/watch?v=tPEE9ZwTmy0', glossary: ['test']}
+  [Rev::Input.new(input_params)]
+end
+
 end
