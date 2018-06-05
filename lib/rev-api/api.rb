@@ -2,7 +2,6 @@ require 'rev-api/version'
 require 'rev-api/http_client'
 require 'rev-api/exceptions'
 require 'json'
-require 'pry'
 
 # automatically include business logic objects
 Dir[File.dirname(__FILE__) + '/models/*.rb'].each do |file|
@@ -202,7 +201,6 @@ module Rev
     #         Raises {Rev::BadRequestError} on failure (.code attr exposes API error code -
     #         see {Rev::OrderRequestError}).
     def submit_order(order_request)
-      binding.pry
       response = @client.post("/orders", order_request.to_json, { 'Content-Type' => 'application/json' })
       Api.verify_post_response(response)
 

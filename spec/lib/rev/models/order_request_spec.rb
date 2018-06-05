@@ -46,48 +46,57 @@ describe 'OrderRequest' do
 
   describe 'TranscriptionOptions' do
     it 'is InputOptions' do
-      options = Rev::TranscriptionOptions.new([{}], {})
+      inputs = create_input()
+      options = Rev::TranscriptionOptions.new(inputs, {})
       options.must_be_kind_of Rev::InputOptions
     end
 
-    describe 'rejects glossary of invalid size' do
+    it 'rejects glossary of invalid size' do
       oversize_glossary = []
-
       for x in 0..GLOSSARY_ENTRIES_LIMIT_TEST do
         oversize_glossary << 'testing'
       end
-      glossary = ['wow', 'amazing']
-      inputs = [Rev::Input.new(audio_length_seconds: 180, external_link: 'https://www.youtube.com/watch?v=tPEE9ZwTmy0', glossary: glossary)]
-      tc_options = Rev::TranscriptionOptions.new(inputs)
-      puts inputs[0].glossary
-      # proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
+      inputs = create_input(glossary: oversize_glossary)
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    describe 'rejects glossary with invalid terms' do
-
+    it 'rejects glossary with invalid terms' do
+      oversize_glossary_term = "A" * (GLOSSARY_ENTRY_LENGTH_LIMIT_TEST + 1)
+      inputs = create_input(glossary: [oversize_glossary_term])
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    describe 'rejects speaker names of invalid size' do
-
+    it 'rejects speaker names of invalid size' do
+      oversize_speaker_names = []
+      for x in 0..SPEAKER_ENTRIES_LIMIT_TEST do
+        oversize_speaker_names << 'testing'
+      end
+      inputs = create_input(speaker_names: oversize_speaker_names)
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    describe 'rejects speaker names if name is too long' do
-
+    it 'rejects speaker names if name is too long' do
+      oversize_speaker_name = "A" * (SPEAKER_ENTRY_LENGTH_LIMIT_TEST + 1)
+      inputs = create_input(speaker_names: [oversize_speaker_name])
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    describe 'rejects invalid accents' do
-
+    it 'rejects invalid accents' do
+      inputs = create_input(accents: ['invalid'])
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
   end
 
   describe 'CaptionOptions' do
     it 'is InputOptions' do
-      options = Rev::CaptionOptions.new([{}], {})
+      inputs = create_input()
+      options = Rev::CaptionOptions.new(inputs, {})
       options.must_be_kind_of Rev::InputOptions
     end
 
     it 'has output file formats attribute' do
-      options = Rev::CaptionOptions.new([{}], {})
+      inputs = create_input()
+      options = Rev::CaptionOptions.new(inputs, {})
       options.must_respond_to :output_file_formats
     end
 
@@ -104,13 +113,45 @@ describe 'OrderRequest' do
     end
 
     it 'rejects unknowns file formats' do
-      proc { Rev::CaptionOptions.new([{}], { :output_file_formats => ['invalid'] }) }.must_raise ArgumentError
+      inputs = create_input()
+      proc { Rev::CaptionOptions.new(inputs, { :output_file_formats => ['invalid'] }) }.must_raise ArgumentError
     end
 
     it 'accepts valid file formats' do
-      order = Rev::CaptionOptions.new([{}], { :output_file_formats => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]] })
+      inputs = create_input()
+      order = Rev::CaptionOptions.new(inputs, { :output_file_formats => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]] })
       order.output_file_formats.length.must_equal 1
       order.output_file_formats[0].must_equal Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc];
+    end
+
+    it 'rejects glossary of invalid size' do
+      oversize_glossary = []
+      for x in 0..GLOSSARY_ENTRIES_LIMIT_TEST do
+        oversize_glossary << 'testing'
+      end
+      inputs = create_input(glossary: oversize_glossary)
+      proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
+    end
+
+    it 'rejects glossary with invalid terms' do
+      oversize_glossary_term = "A" * (GLOSSARY_ENTRY_LENGTH_LIMIT_TEST + 1)
+      inputs = create_input(glossary: [oversize_glossary_term])
+      proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
+    end
+
+    it 'rejects speaker names of invalid size' do
+      oversize_speaker_names = []
+      for x in 0..SPEAKER_ENTRIES_LIMIT_TEST do
+        oversize_speaker_names << 'testing'
+      end
+      inputs = create_input(speaker_names: oversize_speaker_names)
+      proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
+    end
+
+    it 'rejects speaker names if name is too long' do
+      oversize_speaker_name = "A" * (SPEAKER_ENTRY_LENGTH_LIMIT_TEST + 1)
+      inputs = create_input(speaker_names: [oversize_speaker_name])
+      proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
     end
   end # CaptionOptions
 

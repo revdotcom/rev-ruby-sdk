@@ -1,5 +1,4 @@
 require 'rev-api/api_serializable'
-require 'pry'
 
 module Rev
   # OrderRequest is used for constructing order 'spec' in consumer code and passing it into.
@@ -124,7 +123,6 @@ module Rev
     private
 
     def optionsValidation(inputs)
-      binding.pry
       inputs.each { |input|
         input.validate_glossary
         input.validate_speaker_names
