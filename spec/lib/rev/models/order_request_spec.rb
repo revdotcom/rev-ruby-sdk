@@ -52,32 +52,29 @@ describe 'OrderRequest' do
     end
 
     it 'rejects glossary of invalid size' do
-      oversize_glossary = []
-      for x in 0..GLOSSARY_ENTRIES_LIMIT_TEST do
-        oversize_glossary << 'testing'
-      end
+      oversize_glossary = ['testing']*(GLOSSARY_ENTRIES_LIMIT_TEST + 1)
       inputs = create_input(glossary: oversize_glossary)
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    it 'rejects glossary with invalid terms' do
+    it 'rejects glossary if any terms are too long' do
       oversize_glossary_term = "A" * (GLOSSARY_ENTRY_LENGTH_LIMIT_TEST + 1)
       inputs = create_input(glossary: [oversize_glossary_term])
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
     it 'rejects speaker names of invalid size' do
-      oversize_speaker_names = []
+      oversize_speakers = []
       for x in 0..SPEAKER_ENTRIES_LIMIT_TEST do
-        oversize_speaker_names << 'testing'
+        oversize_speakers << 'testing'
       end
-      inputs = create_input(speaker_names: oversize_speaker_names)
+      inputs = create_input(speakers: oversize_speakers)
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
     it 'rejects speaker names if name is too long' do
       oversize_speaker_name = "A" * (SPEAKER_ENTRY_LENGTH_LIMIT_TEST + 1)
-      inputs = create_input(speaker_names: [oversize_speaker_name])
+      inputs = create_input(speakers: [oversize_speaker_name])
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
@@ -133,24 +130,24 @@ describe 'OrderRequest' do
       proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    it 'rejects glossary with invalid terms' do
+    it 'rejects glossary if any terms are too long' do
       oversize_glossary_term = "A" * (GLOSSARY_ENTRY_LENGTH_LIMIT_TEST + 1)
       inputs = create_input(glossary: [oversize_glossary_term])
       proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
     it 'rejects speaker names of invalid size' do
-      oversize_speaker_names = []
+      oversize_speakers = []
       for x in 0..SPEAKER_ENTRIES_LIMIT_TEST do
-        oversize_speaker_names << 'testing'
+        oversize_speakers << 'testing'
       end
-      inputs = create_input(speaker_names: oversize_speaker_names)
+      inputs = create_input(speakers: oversize_speakers)
       proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
     it 'rejects speaker names if name is too long' do
       oversize_speaker_name = "A" * (SPEAKER_ENTRY_LENGTH_LIMIT_TEST + 1)
-      inputs = create_input(speaker_names: [oversize_speaker_name])
+      inputs = create_input(speakers: [oversize_speaker_name])
       proc { Rev::CaptionOptions.new(inputs) }.must_raise ArgumentError
     end
   end # CaptionOptions

@@ -117,15 +117,15 @@ module Rev
     #        - :timestamps => true/false
     def initialize(inputs, info = {})
       super inputs, info
-      optionsValidation(inputs)
+      options_validation(inputs)
     end
 
     private
 
-    def optionsValidation(inputs)
+    def options_validation(inputs)
       inputs.each { |input|
         input.validate_glossary
-        input.validate_speaker_names
+        input.validate_speakers
         input.validate_accents
       }
     end
@@ -161,7 +161,7 @@ module Rev
     def initialize(inputs, info = {})
       super(inputs, info)
       raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
-      optionsValidation(inputs)
+      options_validation(inputs)
     end
 
     private
@@ -170,10 +170,10 @@ module Rev
       formats.nil? || formats.select{|f| !OUTPUT_FILE_FORMATS.has_value?(f) }.empty?
     end
 
-    def optionsValidation(inputs)
+    def options_validation(inputs)
       inputs.each { |input|
         input.validate_glossary
-        input.validate_speaker_names
+        input.validate_speakers
       }
     end
   end
@@ -195,11 +195,11 @@ module Rev
     # External URL, if sources wasn't POSTed as input (YouTube, Vimeo, Dropbox, etc)
     attr_reader :external_link
 
-    #Optional, list of glossary entries.
+    # Optional, list of glossary entries.
     attr_reader :glossary
 
-    #Optional, list of speaker names.
-    attr_reader :speaker_names
+    # Optional, list of speaker names.
+    attr_reader :speakers
 
     # Optional, list of accents.
     attr_reader :accents
@@ -216,26 +216,36 @@ module Rev
     }
 
     def validate_glossary
-      if !glossary.nil?
-        raise(ArgumentError, "Glossary must not exceed #{GLOSSARY_ENTRIES_LIMIT} entries") if glossary.length > GLOSSARY_ENTRIES_LIMIT
+      if glossary
+        if glossary.length > GLOSSARY_ENTRIES_LIMIT
+          raise(ArgumentError, "Glossary must not exceed #{GLOSSARY_ENTRIES_LIMIT} entries")
+        end
         glossary.each { |term|
-          raise(ArgumentError, "Glossary entries cannot exceed #{GLOSSARY_ENTRY_LENGTH_LIMIT} characters") if term.length > GLOSSARY_ENTRY_LENGTH_LIMIT
+          if term.length > GLOSSARY_ENTRY_LENGTH_LIMIT
+            raise(ArgumentError, "Glossary entries cannot exceed #{GLOSSARY_ENTRY_LENGTH_LIMIT} characters")
+          end
         }
       end
     end
 
-    def validate_speaker_names
-      if !speaker_names.nil?
-        raise(ArgumentError, "Speaker list must not exceed #{SPEAKER_ENTRIES_LIMIT} entries") if speaker_names.length > SPEAKER_ENTRIES_LIMIT
-        speaker_names.each { |speaker|
-          raise(ArgumentError, "Speaker name cannot exceed #{SPEAKER_ENTRY_LENGTH_LIMIT} characters") if speaker.length > SPEAKER_ENTRY_LENGTH_LIMIT
+    def validate_speakers
+      if speakers
+        if speakers.length > SPEAKER_ENTRIES_LIMIT
+          raise(ArgumentError, "Speaker list must not exceed #{SPEAKER_ENTRIES_LIMIT} entries")
+        end
+        speakers.each { |speaker|
+          if speaker.length > SPEAKER_ENTRY_LENGTH_LIMIT
+            raise(ArgumentError, "Speaker name cannot exceed #{SPEAKER_ENTRY_LENGTH_LIMIT} characters")
+          end
         }
       end
     end
 
     def validate_accents
-      if !accents.nil?
-        raise(ArgumentError, 'Unsupported accent provided') unless accents.select{|f| !Rev::Input::SUPPORTED_ACCENTS.has_value?(f) }.empty?
+      if accents
+        if accents.any?{ |accent| !Rev::Input::SUPPORTED_ACCENTS.has_value?(accent) }
+          raise(ArgumentError, 'Unsupported accent provided')
+        end
       end
     end
   end

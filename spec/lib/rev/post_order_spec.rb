@@ -1,5 +1,4 @@
 require_relative '../../spec_helper'
-require 'pry'
 
 describe 'POST /orders' do
   let(:client) { Rev.new('welcome', 'AAAAAu/YjZ3phXU5FsF35yIcgiA=', 'www.revtrunk.com') }
@@ -18,11 +17,11 @@ describe 'POST /orders' do
   let(:transcription_inputs) {
       inputs = []
       inputs << Rev::Input.new(:external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', accents: ['AmericanNeutral', 'Australian'])
-      inputs << Rev::Input.new(:audio_length_seconds => 900, :external_link => 'https://vimeo.com/7976699', speaker_names: ['Billy', 'Bob'], glossary: ['Sandwich'])
+      inputs << Rev::Input.new(:audio_length_seconds => 900, :external_link => 'https://vimeo.com/7976699', speakers: ['Billy', 'Bob'], glossary: ['Sandwich'])
   }
   let(:caption_inputs) {
     inputs = []
-    inputs << Rev::Input.new(:video_length_seconds => 900, :external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', speaker_names: ['Billy', 'Bob'], glossary: ['Sandwich'])
+    inputs << Rev::Input.new(:video_length_seconds => 900, :external_link => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', speakers: ['Billy', 'Bob'], glossary: ['Sandwich'])
   }
   let(:transcription_options) { Rev::TranscriptionOptions.new(transcription_inputs,
     :verbatim => true, :timestamps => true) }
@@ -52,7 +51,7 @@ describe 'POST /orders' do
       'transcription_options' => {
         'inputs' => [
           { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'accents' => ['AmericanNeutral', 'Australian']},
-          { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900, 'speaker_names' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
+          { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900, 'speakers' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
         ],
         'verbatim' => true,
         'timestamps' => true
@@ -79,7 +78,7 @@ describe 'POST /orders' do
         'transcription_options' => {
             'inputs' => [
                 { 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'accents' => ['AmericanNeutral', 'Australian']},
-                { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900, 'speaker_names' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
+                { 'external_link' => 'https://vimeo.com/7976699', 'audio_length_seconds' => 900, 'speakers' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
             ],
             'verbatim' => true,
             'timestamps' => true
@@ -115,7 +114,7 @@ describe 'POST /orders' do
       'non_standard_tat_guarantee' => false,
       'caption_options' => {
         'inputs'=> [
-          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'speaker_names' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
+          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'speakers' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
         ],
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]
       }
@@ -138,7 +137,7 @@ describe 'POST /orders' do
       'non_standard_tat_guarantee' => false,
       'caption_options' => {
         'inputs'=> [
-          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'speaker_names' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
+          { 'video_length_seconds' => 900, 'external_link' => 'http://www.youtube.com/watch?v=UF8uR6Z6KLc', 'speakers' => ['Billy', 'Bob'], 'glossary' => ['Sandwich'] }
         ],
         'subtitle_languages' => ['es','it'],
         'output_file_formats' => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:subrip]]

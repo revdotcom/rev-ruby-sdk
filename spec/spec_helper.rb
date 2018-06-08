@@ -1,4 +1,5 @@
 require_relative '../lib/rev-api'
+require_relative 'test_helpers.rb'
 
 #dependencies
 require 'minitest/autorun'
@@ -43,9 +44,4 @@ VCR.configure do |c|
 
     actual_request.headers == expected_request.headers# && actual_user_agent == expected_user_agent
   end
-
-def create_input(options = {})
-  [Rev::Input.new(options)]
-end
-
 end
