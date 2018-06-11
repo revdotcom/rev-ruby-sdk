@@ -243,6 +243,9 @@ module Rev
 
     def validate_accents
       if accents
+        if accents.length > SUPPORTED_ACCENTS.length
+          raise(ArgumentError, "Length of accents list cannot exceed number of supported accents.")
+        end
         if accents.any?{ |accent| !Rev::Input::SUPPORTED_ACCENTS.has_value?(accent) }
           raise(ArgumentError, 'Unsupported accent provided')
         end

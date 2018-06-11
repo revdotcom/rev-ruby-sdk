@@ -4,6 +4,7 @@ GLOSSARY_ENTRIES_LIMIT_TEST = 1000
 GLOSSARY_ENTRY_LENGTH_LIMIT_TEST = 255
 SPEAKER_ENTRIES_LIMIT_TEST = 100
 SPEAKER_ENTRY_LENGTH_LIMIT_TEST = 15
+SUPPORTED_ACCENTS_COUNT = 8
 
 describe 'OrderRequest' do
 
@@ -63,11 +64,8 @@ describe 'OrderRequest' do
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
 
-    it 'rejects speaker names of invalid size' do
-      oversize_speakers = []
-      for x in 0..SPEAKER_ENTRIES_LIMIT_TEST do
-        oversize_speakers << 'testing'
-      end
+    it 'rejects speaker list of invalid size' do
+      oversize_speakers = ['testing']*(SPEAKER_ENTRIES_LIMIT_TEST + 1)
       inputs = create_input(speakers: oversize_speakers)
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
@@ -80,6 +78,12 @@ describe 'OrderRequest' do
 
     it 'rejects invalid accents' do
       inputs = create_input(accents: ['invalid'])
+      proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
+    end
+
+    it 'rejects accents when theres more listed than supported' do
+      accents = [Rev::Input::SUPPORTED_ACCENTS[:american_neutral]]*(SUPPORTED_ACCENTS_COUNT + 1)
+      inputs = create_input(accents: accents)
       proc { Rev::TranscriptionOptions.new(inputs) }.must_raise ArgumentError
     end
   end
