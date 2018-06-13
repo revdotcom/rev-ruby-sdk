@@ -1,4 +1,5 @@
 require_relative '../lib/rev-api'
+require_relative 'test_helpers.rb'
 
 #dependencies
 require 'minitest/autorun'

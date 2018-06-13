@@ -25,7 +25,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency('vcr', '~> 2.6', '~> 2.6.0')
   s.add_development_dependency('turn', '~> 0.9', '~> 0.9.6')
   s.add_development_dependency('rake', '~> 10.1', '>= 10.1.0')
-  s.add_development_dependency('yard', '~> 0')
+  s.add_development_dependency('yard', '~> 0.9.14')
   s.add_development_dependency('redcarpet', '~> 3.3')
   s.add_development_dependency('rubygems-tasks', '~> 0')
 
