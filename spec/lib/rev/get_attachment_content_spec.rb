@@ -62,12 +62,11 @@ describe 'GET /attachments/{id}/content' do
     action.must_raise Rev::NotFoundError
   end
 
-  # requesting conversion from pdf to :docx from order TC0263917003
+  # requesting conversion to .doc
   it 'must raise NotAcceptableError when requested representation is not supported by API' do
     VCR.insert_cassette 'get_attachment_content_unacceptable_representation'
 
-    action = lambda { client.save_attachment_content('yw27D3gCAAABAAAA', filename,
-      Rev::Attachment::REPRESENTATIONS[:docx]) }
+    action = lambda { client.save_attachment_content('yw27D3gCAAABAAAA', filename, 'application/msword') }
     action.must_raise Rev::NotAcceptableError
   end
 

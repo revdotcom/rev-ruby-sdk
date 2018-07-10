@@ -8,7 +8,7 @@ http_interactions:
       string: ''
     headers:
       Accept:
-      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/msword
       Authorization:
       - Rev welcome:AAAAAu/YjZ3phXU5FsF35yIcgiA=
       User-Agent:
