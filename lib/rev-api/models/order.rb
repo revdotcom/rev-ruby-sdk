@@ -81,7 +81,6 @@ module Rev
     REPRESENTATIONS = {
       # Supported by :transcript
       :docx => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-      :doc => 'application/msword',
       :pdf => 'application/pdf',
       :txt => 'text/plain',
       :youtube => 'text/plain; format=youtube-transcript',
