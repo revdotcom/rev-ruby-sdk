@@ -14,7 +14,6 @@ describe 'GET /attachments/{id}/content' do
   end
 
   describe 'success' do
-
     describe 'must save binary content to file' do
       it 'when no representation given' do
         VCR.insert_cassette 'get_attachment_content'
@@ -55,20 +54,21 @@ describe 'GET /attachments/{id}/content' do
     end
   end
 
-  it 'must raise NotFoundError when attachment id is invalid' do
-    VCR.insert_cassette 'get_attachment_content_with_invalid_id'
+  describe 'raise exception on failure' do
+    it 'must raise NotFoundError when attachment id is invalid' do
+      VCR.insert_cassette 'get_attachment_content_with_invalid_id'
 
-    action = lambda { client.save_attachment_content('trololo', filename) }
-    action.must_raise Rev::NotFoundError
-  end
+      action = lambda { client.save_attachment_content('trololo', filename) }
+      action.must_raise Rev::NotFoundError
+    end
 
-  # requesting conversion from pdf to :docx from order TC0263917003
-  it 'must raise NotAcceptableError when requested representation is not supported by API' do
-    VCR.insert_cassette 'get_attachment_content_unacceptable_representation'
+    # requesting conversion to .doc
+    it 'must raise NotAcceptableError when requested representation is not supported by API' do
+      VCR.insert_cassette 'get_attachment_content_unacceptable_representation'
 
-    action = lambda { client.save_attachment_content('yw27D3gCAAABAAAA', filename,
-      Rev::Attachment::REPRESENTATIONS[:docx]) }
-    action.must_raise Rev::NotAcceptableError
+      action = lambda { client.save_attachment_content('yw27D3gCAAABAAAA', filename, 'application/msword') }
+      action.must_raise Rev::NotAcceptableError
+    end
   end
 
   after do
