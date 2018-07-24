@@ -8,7 +8,7 @@ module Rev
     # Alias for Rev::Api.new
     #
     # @return [Rev::Api]
-    def new(client_api_key, user_api_key, host)
+    def new(client_api_key, user_api_key, host = Rev::Api::PRODUCTION_HOST)
       Rev::Api.new(client_api_key, user_api_key, host)
     end
 
