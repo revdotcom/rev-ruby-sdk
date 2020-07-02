@@ -3,7 +3,7 @@ require 'rev-api/api_serializable'
 module Rev
   # OrderRequest is used for constructing order 'spec' in consumer code and passing it into.
   # It consists of three main elements: :payment, :transcription_options and :notification.
-  # You can also supply reference number, customer comment, and whether standard turnaround time is not required
+  # You can also supply reference number and whether standard turnaround time is not required
   #
   # @note https://www.rev.com/api/ordersposttranscription, https://www.rev.com/api/orderspostcaption
 
@@ -27,9 +27,6 @@ module Rev
 
     # a reference number for the order meaningful for the client (optional)
     attr_reader :client_ref
-
-    # a comment with any special messages about the order (optional)
-    attr_reader :comment
 
     # a boolean flag specifying whether normal turnaround time is not required, defaults to false (optional)
     attr_reader :non_standard_tat_guarantee
