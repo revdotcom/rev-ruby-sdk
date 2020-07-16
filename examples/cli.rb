@@ -253,7 +253,7 @@ class RevCLI
   end
 
   def place_helper(inputs, options)
-    options = options.merge({ :client_ref => 'XB432423', :comment => 'Please work quickly' })
+    options = options.merge({ :client_ref => 'XB432423' })
     request = Rev::OrderRequest.new(options)
 
     begin

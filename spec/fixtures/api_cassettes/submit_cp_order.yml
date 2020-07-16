@@ -5,8 +5,7 @@ http_interactions:
     uri: https://www.revtrunk.com/api/v1/orders
     body:
       encoding: UTF-8
-      string: ! '{"payment":{"type":"AccountBalance"},"caption_options":{"inputs":[{"external_link":"http://www.youtube.com/watch?v=UF8uR6Z6KLc"},{"video_length_seconds":900,"external_link":"https://vimeo.com/7976699"}],"output_file_formats":["SubRip"]},"client_ref":"XB432423","comment":"Please
-        work quickly"}'
+      string: ! '{"payment":{"type":"AccountBalance"},"caption_options":{"inputs":[{"external_link":"http://www.youtube.com/watch?v=UF8uR6Z6KLc"},{"video_length_seconds":900,"external_link":"https://vimeo.com/7976699"}],"output_file_formats":["SubRip"]},"client_ref":"XB432423"}'
     headers:
       Content-Type:
       - application/json
