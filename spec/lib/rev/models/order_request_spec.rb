@@ -52,6 +52,41 @@ describe 'OrderRequest' do
       options.must_be_kind_of Rev::InputOptions
     end
 
+    it 'has correct info attributes' do
+      inputs = create_input()
+      options = Rev::TranscriptionOptions.new(inputs, {})
+      options.must_respond_to :output_file_formats
+      options.must_respond_to :verbatim
+      options.must_respond_to :timestamps
+    end
+
+    it 'has output file formats hash' do
+      Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:ms_word].must_equal 'MS Word'
+      Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:json].must_equal 'JSON'
+      Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:text].must_equal 'Text'
+      Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:pdf].must_equal 'Pdf'
+    end
+
+    it 'rejects invalid output file format' do
+      inputs = create_input()
+      proc { Rev::TranscriptionOptions.new(inputs, { :output_file_formats => ['invalid'] }) }.must_raise ArgumentError
+    end
+
+    it 'accepts all valid output file formats' do
+      inputs = create_input()
+      order = Rev::TranscriptionOptions.new(inputs, { :output_file_formats => [
+        Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:ms_word],
+        Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:json],
+        Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:text],
+        Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:pdf]
+      ] })
+      order.output_file_formats.length.must_equal 4
+      order.output_file_formats[0].must_equal Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:ms_word]
+      order.output_file_formats[1].must_equal Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:json]
+      order.output_file_formats[2].must_equal Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:text]
+      order.output_file_formats[3].must_equal Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:pdf]
+    end
+
     it 'rejects glossary of invalid size' do
       oversize_glossary = ['testing']*(GLOSSARY_ENTRIES_LIMIT_TEST + 1)
       inputs = create_input(glossary: oversize_glossary)
@@ -122,7 +157,7 @@ describe 'OrderRequest' do
       inputs = create_input()
       order = Rev::CaptionOptions.new(inputs, { :output_file_formats => [Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]] })
       order.output_file_formats.length.must_equal 1
-      order.output_file_formats[0].must_equal Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc];
+      order.output_file_formats[0].must_equal Rev::CaptionOptions::OUTPUT_FILE_FORMATS[:scc]
     end
 
     it 'rejects glossary of invalid size' do
