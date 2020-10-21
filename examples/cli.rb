@@ -227,7 +227,7 @@ class RevCLI
   def place_tc(args)
     input_urls = upload(args, 'audio/mpeg')
     inputs = input_urls.map { |url| Rev::Input.new(:uri => url, :audio_length_seconds => 180) }
-    tc_options = Rev::TranscriptionOptions.new(inputs)
+    tc_options = Rev::TranscriptionOptions.new(inputs, {:output_file_formats => [Rev::TranscriptionOptions::OUTPUT_FILE_FORMATS[:ms_word]] })
     place_helper(inputs, { :transcription_options => tc_options })
   end
 

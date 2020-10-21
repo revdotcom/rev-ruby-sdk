@@ -101,6 +101,10 @@ module Rev
   # using a POST to /inputs, and are referenced using the URIs returned by that call. We also support external links.
   # @see https://www.rev.com/api/ordersposttranscription
   class TranscriptionOptions < InputOptions
+    # Optional, array of file formats the captions should be delivered as.
+    # default is MS Word
+    attr_reader :output_file_formats
+
     # Optional, should we transcribe the provided files verbatim? If true,
     # all filler words (i.e. umm, huh) will be included.
     attr_reader :verbatim
@@ -108,16 +112,30 @@ module Rev
     # Optional, should we include timestamps?
     attr_reader :timestamps
 
+    # All supported output file formats
+    OUTPUT_FILE_FORMATS = {
+      :ms_word => 'MS Word',
+      :json => 'JSON',
+      :text => 'Text',
+      :pdf => 'Pdf'
+    }
+
     # @param inputs [Array] list of inputs
     # @param info [Hash] of fields to initialize instance. May contain:
+    #        - :output_file_formats => String[]
     #        - :verbatim => true/false
     #        - :timestamps => true/false
     def initialize(inputs, info = {})
       super inputs, info
+      raise(ArgumentError, "invalid format(s)") unless validate_output_formats(info[:output_file_formats])
       options_validation(inputs)
     end
 
     private
+
+    def validate_output_formats(formats)
+      formats.nil? || formats.select{|f| !OUTPUT_FILE_FORMATS.has_value?(f) }.empty?
+    end
 
     def options_validation(inputs)
       inputs.each { |input|
@@ -153,7 +171,8 @@ module Rev
 
     # @param inputs [Array] list of inputs
     # @param info [Hash] of fields to initialize instance. May contain:
-    #        - :subtitle_languages
+    #        - :output_file_formats => String[]
+    #        - :subtitle_languages => String[]
     # @see For language codes refer to http://www.loc.gov/standards/iso639-2/php/code_list.php
     def initialize(inputs, info = {})
       super(inputs, info)
