@@ -104,7 +104,7 @@ Refer to `cli.rb` in the `examples` directory for a full example illustrating pl
 
 ### Documentation
 
-[YARD documentation](http://rubydoc.info/github/revdotcom/rev-ruby-sdk/master/frames) can be generated locally by running `rake yard` command, and will be placed in the `doc` directory.
+[YARD documentation](https://rubydoc.info/github/revdotcom/rev-ruby-sdk) can be generated locally by running `rake yard` command, and will be placed in the `doc` directory.
 
 You can find API documentation at <https://www.rev.com/api/docs>.
 
