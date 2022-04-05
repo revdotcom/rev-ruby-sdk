@@ -51,7 +51,7 @@ initialize the client this way:
 ```ruby
 require 'rev-api'
 
-rev_client = Rev.new('your_client_key', 'your_user_key', Rev::Api::SANDBOX_HOST)
+rev_client = Rev.new('your_client_key', 'your_user_key', Rev::Api::PRODUCTION_HOST)
 ```
 
 ### Usage
