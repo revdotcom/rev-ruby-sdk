@@ -13,6 +13,9 @@ module Rev
   SPEAKER_ENTRY_LENGTH_LIMIT = 15
 
   class OrderRequest < ApiSerializable
+    # see {Rev::SandboxMode}
+    attr_reader :sandbox_mode
+
     # see {Rev::Payment}
     attr_reader :payment
 
@@ -45,6 +48,14 @@ module Rev
       fields = { :non_standard_tat_guarantee => false }.merge(fields)
       @payment = Rev::Payment.with_account_balance
       super fields
+    end
+  end
+
+  class SandboxMode
+    attr_reader :sandbox_mode
+
+    def initialize(sandbox_mode = false)
+      @sandbox_mode = sandbox_mode
     end
   end
 
