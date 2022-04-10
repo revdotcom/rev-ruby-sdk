@@ -1,10 +1,4 @@
-[![Gem Version](https://badge.fury.io/rb/rev-api.png)](http://badge.fury.io/rb/rev-api)
-[![Build Status](https://secure.travis-ci.org/revdotcom/rev-ruby-sdk.png?branch=master)](https://secure.travis-ci.org/revdotcom/rev-ruby-sdk)
-[![Dependency Status](https://gemnasium.com/revdotcom/rev-ruby-sdk.png?travis)](https://gemnasium.com/revdotcom/rev-ruby-sdk)
-[![Code Climate](https://codeclimate.com/github/revdotcom/rev-ruby-sdk.png)](https://codeclimate.com/github/revdotcom/rev-ruby-sdk)
-
-[Reference](https://www.rev.com/api/docs) | [RDocs](http://rubydoc.info/github/revdotcom/rev-ruby-sdk/master/frames)
-
+ver 2.5.1
 rev-ruby-sdk
 ------------
 
@@ -57,7 +51,7 @@ initialize the client this way:
 ```ruby
 require 'rev-api'
 
-rev_client = Rev.new('your_client_key', 'your_user_key', Rev::Api::SANDBOX_HOST)
+rev_client = Rev.new('your_client_key', 'your_user_key', Rev::Api::PRODUCTION_HOST)
 ```
 
 ### Usage
